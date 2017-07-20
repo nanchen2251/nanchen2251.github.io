@@ -1,0 +1,1003 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一、写在前面其实博主在之前已经对 Design 包的各个控件都做了博文说明，无奈个人觉得理解不够深入，所以有了这篇更加深入的介绍，希望各位看官拍砖~ 二、从是什么开始1、首先我们得知道 CoordinatorLayout 是什么玩意儿，到底有什么用，我们不妨看看官方文档的描述：　　　  CoordinatorLayout 是一个 “加强版” FrameLayout， 它主要有两个用途：1) 用作应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="一、写在前面其实博主在之前已经对 Design 包的各个控件都做了博文说明，无奈个人觉得理解不够深入，所以有了这篇更加深入的介绍，希望各位看官拍砖~ 二、从是什么开始1、首先我们得知道 CoordinatorLayout 是什么玩意儿，到底有什么用，我们不妨看看官方文档的描述：　　　  CoordinatorLayout 是一个 “加强版” FrameLayout， 它主要有两个用途：1) 用作应">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-deaf3d22fd6895ae.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-a50958bb95f19e10.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-1c4269557c2af656.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-07-20T01:12:23.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单">
+<meta name="twitter:description" content="一、写在前面其实博主在之前已经对 Design 包的各个控件都做了博文说明，无奈个人觉得理解不够深入，所以有了这篇更加深入的介绍，希望各位看官拍砖~ 二、从是什么开始1、首先我们得知道 CoordinatorLayout 是什么玩意儿，到底有什么用，我们不妨看看官方文档的描述：　　　  CoordinatorLayout 是一个 “加强版” FrameLayout， 它主要有两个用途：1) 用作应">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3994917-deaf3d22fd6895ae.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/"/>
+
+
+
+
+
+  <title>一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单 | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T09:11:06+08:00">
+                2017-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/" class="leancloud_visitors" data-flag-title="一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、写在前面"><a href="#一、写在前面" class="headerlink" title="一、写在前面"></a>一、写在前面</h2><p>其实博主在之前已经对 Design 包的各个控件都做了博文说明，无奈个人觉得理解不够深入，所以有了这篇更加深入的介绍，希望各位看官拍砖~</p>
+<h2 id="二、从是什么开始"><a href="#二、从是什么开始" class="headerlink" title="二、从是什么开始"></a>二、从是什么开始</h2><p>1、首先我们得知道 <code>CoordinatorLayout</code> 是什么玩意儿，到底有什么用，我们不妨看看官方文档的描述：　　　</p>
+<blockquote>
+<p><code>CoordinatorLayout</code> 是一个 “加强版” <code>FrameLayout</code>， 它主要有两个用途：<br>1) 用作应用的顶层布局管理器，也就是作为用户界面中所有 UI 控件的容器;<br>2) 用作相互之间具有特定交互行为的 UI 控件的容器，通过为 <code>CoordinatorLayout</code> 的子 View 指定 Behavior， 就可以实现它们之间的交互行为。 Behavior 可以用来实现一系列的交互行为和布局变化，比如说侧滑菜单、可滑动删除的 UI 元素，以及跟随着其他 UI 控件移动的按钮等。</p>
+</blockquote>
+<p>其实总结出来就是 <code>CoordinatorLayout</code> 是一个布局管理器，相当于一个增强版的 <code>FrameLayout</code>，但是它神奇在于可以实现它的子 View 之间的交互行为。</p>
+<p><strong>2、交互行为？</strong><br>先看个简单的效果图<br><img src="http://upload-images.jianshu.io/upload_images/3994917-deaf3d22fd6895ae.gif?imageMogr2/auto-orient/strip" alt=""><br>可能大家看到这，就自然能想到观察者模式，或者我前面写的Rx模式：<a href="http://www.cnblogs.com/liushilin/p/6164901.html" target="_blank" rel="external">知识必备】RxJava+Retrofit最佳结合体验，打造懒人封装框架~</a></p>
+<p>我们的 <code>Button</code> 就是一个被观察者，TextView 作为一个观察者，当 <code>Button</code> 移动的时候通知 <code>TextView</code>， <code>TextView</code> 就跟着移动。看看其布局：　　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;android.support.design.widget.CoordinatorLayout</div><div class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    android:id=&quot;@+id/activity_coordinator&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    tools:context=&quot;com.nanchen.coordinatorlayoutdemo.CoordinatorActivity&quot;&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;观察者&quot;</div><div class="line">        app:layout_behavior=&quot;.FollowBehavior&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;Button</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;被观察者&quot;</div><div class="line">        android:layout_gravity=&quot;center&quot;</div><div class="line">        android:id=&quot;@+id/btn&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/android.support.design.widget.CoordinatorLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>很简单，一个 <code>TextView</code>， 一个 <code>Button</code>， 外层用 <code>CoordinatorLayout</code>， 然后给我们的 <code>TextView</code> 加一个自定义的 <code>Behavior</code> 文件，内容如下：　　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">package com.nanchen.coordinatorlayoutdemo;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.support.design.widget.CoordinatorLayout;</div><div class="line">import android.util.AttributeSet;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * 自定义 CoordinatorLayout 的 Behavior， 泛型为观察者 View ( 要跟着别人动的那个 )</div><div class="line"> *</div><div class="line"> * 必须重写两个方法，layoutDependOn和onDependentViewChanged</div><div class="line"> *</div><div class="line"> * @author nanchen</div><div class="line"> * @fileName CoordinatorLayoutDemo</div><div class="line"> * @packageName com.nanchen.coordinatorlayoutdemo</div><div class="line"> * @date 2016/12/13  10:13</div><div class="line"> */</div><div class="line"></div><div class="line">public class FollowBehavior extends CoordinatorLayout.Behavior&lt;TextView&gt;&#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 构造方法</div><div class="line">     */</div><div class="line">    public FollowBehavior(Context context, AttributeSet attrs) &#123;</div><div class="line">        super(context, attrs);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 判断child的布局是否依赖 dependency</div><div class="line">     *</div><div class="line">     * 根据逻辑来判断返回值，返回 false 表示不依赖，返回 true 表示依赖</div><div class="line">     *</div><div class="line">     * 在一个交互行为中，Dependent View 的变化决定了另一个相关 View 的行为。</div><div class="line">     * 在这个例子中， Button 就是 Dependent View，因为 TextView 跟随着它。</div><div class="line">     * 实际上 Dependent View 就相当于我们前面介绍的被观察者</div><div class="line">     *</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public boolean layoutDependsOn(CoordinatorLayout parent, TextView child, View dependency) &#123;</div><div class="line">        return dependency instanceof Button;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onDependentViewChanged(CoordinatorLayout parent, TextView child, View dependency) &#123;</div><div class="line">        child.setX(dependency.getX());</div><div class="line">        child.setY(dependency.getY() + 100);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重点看看其中重写的两个方法 <code>layoutDependsOn()</code> 和 <code>onDependentViewChanged()</code> 。在介绍这两个方法的作用前，我们先来介绍一下 Dependent View。在一个交互行为中，Dependent View 的变化决定了另一个相关 View 的行为。在这个例子中， Button 就是 Dependent View， 因为 TextView 跟随着它。实际上 Dependent View 就相当于我们前面介绍的被观察者。</p>
+<p>知道了这个概念，让我们看看重写的两个方法的作用： </p>
+<ul>
+<li><p><code>layoutDependsOn()</code>：这个方法在对界面进行布局时至少会调用一次，用来确定本次交互行为中的 Dependent View，在上面的代码中，当 <code>Dependency</code> 是Button 类的实例时返回 true，就可以让系统知道布局文件中的 Button 就是本次交互行为中的 Dependent View。</p>
+</li>
+<li><p><code>onDependentViewChanged()</code>：当 Dependent View 发生变化时，这个方法会被调用，参数中的child相当于本次交互行为中的观察者，观察者可以在这个方法中对被观察者的变化做出响应，从而完成一次交互行为。</p>
+</li>
+</ul>
+<p>所以我们现在可以开始写Activity中的代码：　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">findViewById(R.id.btn).setOnTouchListener(new OnTouchListener() &#123;</div><div class="line">            @Override</div><div class="line">            public boolean onTouch(View view, MotionEvent motionEvent) &#123;</div><div class="line">                if (motionEvent.getAction() == MotionEvent.ACTION_MOVE)&#123;</div><div class="line">                    view.setX(motionEvent.getRawX()-view.getWidth()/2);</div><div class="line">                    view.setY(motionEvent.getRawY()-view.getHeight()/2);</div><div class="line">                &#125;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<p>这样一来，我们就完成了为 TextView 和Button 设置跟随移动这个交互行为。很简单有木有，其实为 <code>CoordinatorLayout</code> 的子 View 设置交互行为只需三步：<br>自定义一个继承自 <code>Behavior</code> 类的交互行为类；</p>
+<p>把观察者的 <code>layout_behavior</code> 属性设置为自定义行为类的类名；</p>
+<p>重写 <code>Behavior</code> 类的相关方法来实现我们想要的交互行为。 </p>
+<p>值得注意的是，有些时候，并不需要我们自己来定义一个 <code>Behavior</code> 类，因为系统为我们预定义了不少 <code>Behavior</code> 类。在接下来的篇章中，我们会做出进一步的介绍。</p>
+<p><strong>3、更进一步</strong><br>现在我们已经知道了怎么通过给 <code>CoordinatorLayout</code> 的子 View 设置 <code>Behavior</code> 来实现交互行为。现在，让我们更进一步地挖掘下 <code>CoordinatorLayout</code>， 深入了解一下隐藏在表象背后的神秘细节。<br>实际上， <code>CoordinatorLayout</code> 本身并没有做过多工作，实现交互行为的主要幕后推手是 <code>CoordinatorLayout</code> 的内部类—— <code>Behavior</code>。通过为 <code>CoordinatorLayout</code> 的<strong>直接子 View </strong>绑定一个 <code>Behavior</code> ，这个 <code>Behavior</code> 就会拦截发生在这个 View 上的 Touch 事件、嵌套滚动等。不仅如此，<code>Behavior</code> 还能拦截对与它绑定的 View 的测量及布局。关于嵌套滚动，我们会在后续文章中进行详细介绍。下面我们来深入了解一下 <code>Behavior</code> 是如何做到这一切的。</p>
+<p><strong>4、深入理解 Behavior</strong></p>
+<ul>
+<li>拦截 Touch 事件</li>
+</ul>
+<p>当我们为一个 <code>CoordinatorLayout</code> 的直接子 View 设置了 Behavior 时，这个 Behavior 就能拦截发生在这个 View 上的 Touch 事件，那么它是如何做到的呢？实际上， <code>CoordinatorLayout</code> 重写了 <code>onInterceptTouchEvent()</code> 方法，并在其中给 Behavior 开了个后门，让它能够先于 View 本身处理 Touch 事件。具体来说， <code>CoordinatorLayout</code> 的 <code>onInterceptTouchEvent()</code> 方法中会遍历所有直接子 View ，对于绑定了 Behavior 的直接子 View 调用 Behavior 的 onInterceptTouchEvent() 方法，若这个方法返回 true， 那么后续本该由相应子 View 处理的 Touch 事件都会交由 Behavior 处理，而 View 本身表示懵逼，完全不知道发生了什么。</p>
+<ul>
+<li>拦截测量及布局</li>
+</ul>
+<p>了解了 Behavior 是怎养拦截 Touch 事件的，想必大家已经猜出来了它拦截测量及布局事件的方式 —— CoordinatorLayout 重写了测量及布局相关的方法并为 Behavior 开了个后门。没错，真相就是如此。<br>CoordinatorLayout 在 <code>onMeasure()</code> 方法中，会遍历所有直接子 View ，若该子 View 绑定了一个 Behavior ，就会调用相应 Behavior 的 <code>onMeasureChild()</code> 方法，若此方法返回 true，那么 CoordinatorLayout 对该子 View 的测量就不会进行。这样一来， Behavior 就成功接管了对 View 的测量。<br>同样，CoordinatorLayout 在 <code>onLayout()</code> 方法中也做了与 <code>onMeasure()</code> 方法中相似的事，让 Behavior 能够接管对相关子 View 的布局。</p>
+<ul>
+<li>View 的依赖关系的确定<br>现在，我们在探究一下交互行为中的两个 View 之间的依赖关系是怎么确定的。我们称 child 为交互行为中根据另一个 View 的变化做出响应的那个个体，而 Dependent View 为child所依赖的 View。实际上，确立 child 和 Dependent View 的依赖关系有两种方式：</li>
+</ul>
+<p>1) 显式依赖：为 child 绑定一个 Behavior，并在 Behavior 类的 <code>layoutDependsOn()</code> 方法中做手脚。即当传入的 <code>dependency</code> 为 Dependent View 时返回 true，这样就建立了 child 和 Dependent View 之间的依赖关系。</p>
+<p>2) 隐式依赖：通过我们最开始提到的锚（anchor）来确立。具体做法可以这样：在 XML 布局文件中，把 child 的 <code>layout_anchor</code> 属性设为 Dependent View 的id，然后 child 的 <code>layout_anchorGravity</code> 属性用来描述为它想对 Dependent View 的变化做出什么样的响应。关于这个我们会在后续篇章给出具体示例。 </p>
+<p>无论是隐式依赖还是显式依赖，在 Dependent View 发生变化时，相应 Behavior 类的 <code>onDependentViewChanged()</code> 方法都会被调用，在这个方法中，我们可以让 child 做出改变以响应 Dependent View 的变化。</p>
+<h2 id="三、玩转AppBarLayout"><a href="#三、玩转AppBarLayout" class="headerlink" title="三、玩转AppBarLayout"></a>三、玩转AppBarLayout</h2><p>实际上我们在应用中有 CoordinatorLayout 的地方通常都会有 AppBarLayout 的联用，作为同样的出自 Design 包的库，我们看看官方文档怎么说：</p>
+<blockquote>
+<p>AppBarLayout 是一个垂直的 LinearLayout，实现了 Material Design 中 App bar 的 Scrolling Gestures 特性。AppBarLayout 的子 View 应该声明想要具有的“滚动行为”，这可以通过 layout_scrollFlags 属性或是 setScrollFlags() 方法来指定。</p>
+<p>AppBarLayout 只有作为 CoordinatorLayout 的直接子 View 时才能正常工作，为了让 AppBarLayout 能够知道何时滚动其子 View，我们还应该在 CoordinatorLayout 布局中提供一个可滚动 View，我们称之为 Scrolling View。 </p>
+<p>Scrolling View 和 AppBarLayout 之间的关联，通过将 Scrolling View 的 Behavior 设为 AppBarLayout.ScrollingViewBehavior 来建立。</p>
+</blockquote>
+<p><strong>1、一般怎么用？</strong><br><code>AppBar</code> 是 Design 的一个概念，其实我们也可以把它看做一种 5.0 出的 <code>ToolBar</code>，先感受一下 <code>AppBarLayout</code>  +  <code>CoordinatorLayout</code> 的魅力。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-a50958bb95f19e10.gif?imageMogr2/auto-orient/strip" alt=""><br>实际效果就是这样，当向上滑动 View 的时候，ToolBar 会小时，向下滑动的时候，ToolBar 又会出现，但别忘了，这是 AppBarLayout 的功能，ToolBar 可办不到。由于要滑动，那么我们的 AppBarLayout 一定是和可以滑动的 View 一起使用的，比如 <code>RecyclerView</code>，<code>ScollView</code> 等。<br>我们看看上面的到底怎么实现的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;android.support.design.widget.CoordinatorLayout</div><div class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:id=&quot;@+id/activity_coor_app_bar&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    tools:context=&quot;com.nanchen.coordinatorlayoutdemo.CoorAppBarActivity&quot;&gt;</div><div class="line"></div><div class="line">    &lt;android.support.design.widget.AppBarLayout</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        app:popupTheme=&quot;@style/ThemeOverlay.AppCompat.Light&quot;&gt;</div><div class="line"></div><div class="line">        &lt;android.support.v7.widget.Toolbar</div><div class="line">            android:id=&quot;@+id/toolbar&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;?attr/actionBarSize&quot;</div><div class="line">            app:layout_scrollFlags=&quot;scroll|enterAlways&quot;&gt;</div><div class="line"></div><div class="line">        &lt;/android.support.v7.widget.Toolbar&gt;</div><div class="line">    &lt;/android.support.design.widget.AppBarLayout&gt;</div><div class="line"></div><div class="line">    &lt;android.support.v7.widget.RecyclerView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:id=&quot;@+id/recycler&quot;</div><div class="line">        app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/android.support.design.widget.CoordinatorLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>我们可以看到，上面出现了一个 <code>app:layouy_scrollFrags</code> 的自定义属性设置，这个属性可以定义我们不同的滚动行为。</p>
+<p><strong>2、layout_scrollFlags </strong><br>根据官方文档，<code>layout_scrollFlags</code> 的取值可以为以下几种。</p>
+<ul>
+<li><p>scroll<br>设成这个值的效果就好比本 View 和 Scrolling view 是“一体”的。具体示例我们在上面已经给出。有一点特别需要我们的注意，为了其他的滚动行为生效，必须同时指定 Scroll 和相应的标记，比如我们想要 <code>exitUntilCollapsed</code> 所表现的滚动行为，必须将 layout_scrollFlags 指定为 <code>scroll|exitUntilCollapsed</code> 。</p>
+</li>
+<li><p>exitUntilCollapsed<br>当本 View 离开屏幕时，会被“折叠”直到达到其最小高度。我们可以这样理解这个效果：当我们开始向上滚动 Scrolling view 时，本 View 会先接管滚动事件，这样本 View 会先进行滚动，直到滚动到了最小高度（折叠了），Scrolling view 才开始实际滚动。而当本 View 已完全折叠后，再向下滚动 Scrolling view，直到 Scrolling view 顶部的内容完全显示后，本 View 才会开始向下滚动以显现出来。</p>
+</li>
+<li><p>enterAlways<br>当 Scrolling view 向下滚动时，本 View 会一起跟着向下滚动。实际上就好比我们同时对 Scrolling view 和本 View 进行向下滚动。</p>
+</li>
+<li><p>enterAlwaysCollapsed<br>从名字上就可以看出，这是在 <code>enterAlways</code> 的基础上，加上了“折叠”的效果。当我们开始向下滚动 Scrolling View 时，本 View 会一起跟着滚动直到达到其“折叠高度”（即最小高度）。然后当 Scrolling View 滚动至顶部内容完全显示后，再向下滚动 Scrolling View，本 View 会继续滚动到完全显示出来。　　</p>
+</li>
+<li><p>snap<br>在一次滚动结束时，本 View 很可能只处于“部分显示”的状态，加上这个标记能够达到“要么完全隐藏，要么完全显示”的效果。</p>
+</li>
+</ul>
+<h2 id="四、CollapsingToolBarLayout"><a href="#四、CollapsingToolBarLayout" class="headerlink" title="四、CollapsingToolBarLayout"></a>四、CollapsingToolBarLayout</h2><p>这个东西，我相信很多博客和技术文章都会把 <code>CollapsingToolBarLayout</code> 和 <code>CoordinatorLayout</code> 放一起讲，这个东西的确很牛。我们同样先看看官方文档介绍：</p>
+<blockquote>
+<p>CollapsingToolbarLayout 通常用来在布局中包裹一个 Toolbar，以实现具有“折叠效果“”的顶部栏。它需要是 AppBarLayout 的直接子 View，这样才能发挥出效果。</p>
+</blockquote>
+<p>CollapsingToolbarLayout包含以下特性： </p>
+<ul>
+<li>Collasping title（可折叠标题）：当布局完全可见时，这个标题比较大；当折叠起来时，标题也会变小。标题的外观可以通过 expandedTextAppearance 和 collapsedTextAppearance 属性来调整。</li>
+<li>Content scrim（内容纱布）：根据 CollapsingToolbarLayout 是否滚动到一个临界点，内容纱布会显示或隐藏。可以通过 setContentScrim(Drawable) 来设置内容纱布。</li>
+<li>Status bar scrim（状态栏纱布）：也是根据是否滚动到临界点，来决定是否显示。可以通过 setStatusBarScrim(Drawable) 方法来设置。这个特性只有在 Android 5.0 及其以上版本，我们设置 fitSystemWindows 为 ture 时才能生效。</li>
+<li>Parallax scrolling children（视差滚动子 View）：子 View 可以选择以“视差”的方式来进行滚动。（视觉效果上就是子 View 滚动的比其他 View 稍微慢些）</li>
+<li>Pinned position children：子 View 可以选择固定在某一位置上。</li>
+</ul>
+<p>上面的描述有些抽象，实际上对于 <code>Content scrim</code> 、<code>Status bar scrim</code> 我们可以暂时予以忽略，只要留个大概印象待以后需要时再查阅相关资料即可。下面我们通过一个常见的例子介绍下 <code>CollapsingToolbarLayout</code> 的基本使用姿势。<br>我们来看看一个常用的效果：<br><img src="http://upload-images.jianshu.io/upload_images/3994917-1c4269557c2af656.gif?imageMogr2/auto-orient/strip" alt=""><br>看看布局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;android.support.design.widget.CoordinatorLayout</div><div class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:id=&quot;@+id/activity_coor_tool_bar&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:fitsSystemWindows=&quot;true&quot;</div><div class="line">    tools:context=&quot;com.nanchen.coordinatorlayoutdemo.CoorToolBarActivity&quot;&gt;</div><div class="line"></div><div class="line">    &lt;android.support.design.widget.AppBarLayout</div><div class="line">        android:id=&quot;@+id/appbar&quot;</div><div class="line">        android:fitsSystemWindows=&quot;true&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        app:theme=&quot;@style/AppTheme.AppBarOverlay&quot;&gt;</div><div class="line"></div><div class="line">        &lt;android.support.design.widget.CollapsingToolbarLayout</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;200dp&quot;</div><div class="line">            app:contentScrim=&quot;@color/colorPrimary&quot;</div><div class="line">            app:expandedTitleMarginStart=&quot;100dp&quot;</div><div class="line">            app:layout_scrollFlags=&quot;scroll|exitUntilCollapsed|snap&quot;</div><div class="line">            app:statusBarScrim=&quot;@android:color/transparent&quot;</div><div class="line">            app:titleEnabled=&quot;false&quot;&gt;</div><div class="line"></div><div class="line">            &lt;ImageView</div><div class="line">                android:layout_width=&quot;match_parent&quot;</div><div class="line">                android:layout_height=&quot;match_parent&quot;</div><div class="line">                android:fitsSystemWindows=&quot;true&quot;</div><div class="line">                android:scaleType=&quot;centerCrop&quot;</div><div class="line">                android:src=&quot;@mipmap/logo&quot;</div><div class="line">                app:layout_collapseMode=&quot;parallax&quot;</div><div class="line">                app:layout_collapseParallaxMultiplier=&quot;0.6&quot;/&gt;</div><div class="line"></div><div class="line">            &lt;android.support.v7.widget.Toolbar</div><div class="line">                android:id=&quot;@+id/toolbar&quot;</div><div class="line">                android:layout_width=&quot;match_parent&quot;</div><div class="line">                android:layout_height=&quot;?attr/actionBarSize&quot;</div><div class="line">                app:layout_collapseMode=&quot;pin&quot;</div><div class="line">                app:popupTheme=&quot;@style/AppTheme.PopupOverlay&quot;</div><div class="line">                app:title=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;/android.support.design.widget.CollapsingToolbarLayout&gt;</div><div class="line"></div><div class="line">    &lt;/android.support.design.widget.AppBarLayout&gt;</div><div class="line"></div><div class="line">    &lt;android.support.v7.widget.RecyclerView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:id=&quot;@+id/recycler&quot;</div><div class="line">        app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id=&quot;@+id/toolbar_title&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;?attr/actionBarSize&quot;</div><div class="line">        android:layout_marginLeft=&quot;16dp&quot;</div><div class="line">        android:layout_marginTop=&quot;-100dp&quot;</div><div class="line">        android:alpha=&quot;0&quot;</div><div class="line">        android:elevation=&quot;10dp&quot;</div><div class="line">        android:gravity=&quot;center_vertical&quot;</div><div class="line">        android:text=&quot;爱吖校推-你关注的，我们才推&quot;</div><div class="line">        android:textColor=&quot;@android:color/white&quot;</div><div class="line">        android:textSize=&quot;20sp&quot;</div><div class="line">        android:textStyle=&quot;bold&quot;</div><div class="line">        app:layout_behavior=&quot;.SimpleViewBehavior&quot;</div><div class="line">        app:svb_dependOn=&quot;@id/appbar&quot;</div><div class="line">        app:svb_dependType=&quot;y&quot;</div><div class="line">        app:svb_targetAlpha=&quot;1&quot;</div><div class="line">        app:svb_targetY=&quot;0dp&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;android.support.design.widget.FloatingActionButton</div><div class="line">        android:id=&quot;@+id/fab&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:layout_margin=&quot;16dp&quot;</div><div class="line">        android:src=&quot;@mipmap/ic_start&quot;</div><div class="line">        app:layout_anchor=&quot;@id/appbar&quot;</div><div class="line">        app:layout_anchorGravity=&quot;bottom|right&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/android.support.design.widget.CoordinatorLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>我们在 XML 文件中为 CollapsingToolBarLayout 的 layout_scrollFlags 指定为 <code>scroll|exitUntilCollapsed|snap</code>，这样便实现了向上滚动的折叠效果。</p>
+<p><code>CollapsingToolbarLayout</code> 本质上同样是一个 <code>FrameLayout</code>，我们在布局文件中指定了一个 <code>ImageView</code> 和一个 <code>Toolbar</code>。<code>ImageView</code> 的<code>layout_collapseMode</code> 属性设为了 <code>parallax</code>，也就是我们前面介绍的视差滚动；而 Toolbar 的 <code>layout_collaspeMode</code> 设为了 <code>pin</code> ，也就是 Toolbar 会始终固定在顶部。</p>
+<h2 id="五、写在最后"><a href="#五、写在最后" class="headerlink" title="五、写在最后"></a>五、写在最后</h2><p>本次的 Design 包下的 <code>CoordinatorLayout</code> 和 <code>AppBarLayout</code> 就讲述到这里，后续还将持续更新，欢迎拍砖~<br>查看源码请移步 Github：<a href="https://github.com/nanchen2251/CoordinatorAppBarDemo" target="_blank" rel="external">https://github.com/nanchen2251/CoordinatorAppBarDemo</a></p>
+<p>欢迎关注我的公众号 ( nanchen ) ，投稿被选中有惊喜！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/这可能是最好的-RxJava-2-x-入门教程（完结版）/" rel="next" title="这可能是最好的 RxJava 2.x 入门教程（完结版）">
+                <i class="fa fa-chevron-left"></i> 这可能是最好的 RxJava 2.x 入门教程（完结版）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、写在前面"><span class="nav-number">1.</span> <span class="nav-text">一、写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、从是什么开始"><span class="nav-number">2.</span> <span class="nav-text">二、从是什么开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、玩转AppBarLayout"><span class="nav-number">3.</span> <span class="nav-text">三、玩转AppBarLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、CollapsingToolBarLayout"><span class="nav-number">4.</span> <span class="nav-text">四、CollapsingToolBarLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、写在最后"><span class="nav-number">5.</span> <span class="nav-text">五、写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/';
+          this.page.identifier = '2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/';
+          this.page.title = '一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
