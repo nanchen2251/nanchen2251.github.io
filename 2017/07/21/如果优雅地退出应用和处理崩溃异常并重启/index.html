@@ -1,0 +1,970 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面这是最近一些朋友问我的问题，我把它整理成了一个库，供大家享用，GitHub 地址：https://github.com/nanchen2251/AppManager 从四个应用场景说起 退出应用相信各位朋友或多或少都会有遇到过需要在某个特定的地方退出应用的需求，这个场景一定非常普遍。  崩溃后重启程序总是无法做到尽善尽美，有时候你也不知道因为什么原因导致了 APP 的崩溃，这无疑是非常糟糕">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如果优雅地退出应用和处理崩溃异常并重启">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="写在前面这是最近一些朋友问我的问题，我把它整理成了一个库，供大家享用，GitHub 地址：https://github.com/nanchen2251/AppManager 从四个应用场景说起 退出应用相信各位朋友或多或少都会有遇到过需要在某个特定的地方退出应用的需求，这个场景一定非常普遍。  崩溃后重启程序总是无法做到尽善尽美，有时候你也不知道因为什么原因导致了 APP 的崩溃，这无疑是非常糟糕">
+<meta property="og:image" content="https://github.com/nanchen2251/AppManager/raw/master/GIF.gif">
+<meta property="og:updated_time" content="2017-07-21T10:22:29.527Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如果优雅地退出应用和处理崩溃异常并重启">
+<meta name="twitter:description" content="写在前面这是最近一些朋友问我的问题，我把它整理成了一个库，供大家享用，GitHub 地址：https://github.com/nanchen2251/AppManager 从四个应用场景说起 退出应用相信各位朋友或多或少都会有遇到过需要在某个特定的地方退出应用的需求，这个场景一定非常普遍。  崩溃后重启程序总是无法做到尽善尽美，有时候你也不知道因为什么原因导致了 APP 的崩溃，这无疑是非常糟糕">
+<meta name="twitter:image" content="https://github.com/nanchen2251/AppManager/raw/master/GIF.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/"/>
+
+
+
+
+
+  <title>如果优雅地退出应用和处理崩溃异常并重启 | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如果优雅地退出应用和处理崩溃异常并重启</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T18:21:47+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/" class="leancloud_visitors" data-flag-title="如果优雅地退出应用和处理崩溃异常并重启">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>这是最近一些朋友问我的问题，我把它整理成了一个库，供大家享用，GitHub 地址：<a href="https://github.com/nanchen2251/AppManager" target="_blank" rel="external">https://github.com/nanchen2251/AppManager</a></p>
+<h2 id="从四个应用场景说起"><a href="#从四个应用场景说起" class="headerlink" title="从四个应用场景说起"></a>从四个应用场景说起</h2><ul>
+<li><p>退出应用<br>相信各位朋友或多或少都会有遇到过需要在某个特定的地方退出应用的需求，这个场景一定非常普遍。</p>
+</li>
+<li><p>崩溃后重启<br>程序总是无法做到尽善尽美，有时候你也不知道因为什么原因导致了 APP 的崩溃，这无疑是非常糟糕的用户体验。这时候我们可以采用重启机制来增强用户舒适体验感。</p>
+</li>
+<li><p>莫名其妙重启<br>然而心细的小伙伴肯定会发现，在部分手机上会出现莫名其妙的崩溃后重启（后面会讲原因），而且最要命的是，假设你有三个 Activity，他们分别是 Act1, Act2, Act3，它们的启动顺序是 Act1 -&gt; Act2 -&gt; Act3，而如果在 Act3 发生了崩溃，这时候极有可能应用重启后进入的是 Act2，而 Act2 中需要某个来源于 Act1 (或者在 Act1 中通过接口获取) 的参数，当没有这个参数的时候会引发崩溃（或者数据不全）。这时候你可能最直观的想法就是禁止应用重启，但或许这并不是最佳的方式。</p>
+</li>
+<li><p>崩溃时弹出一个对话框<br>在部分手机上，当崩溃的时候，会弹出一个提示对话框。在这种情况下，用户只有点击 “强行关闭” 来结束程序。当该对话框出现，对用户来说是相当不友好的。或许我们可以通过某种方式拦截掉系统的处理，让应用出错时不再显示它。</p>
+</li>
+</ul>
+<h2 id="退出应用的几种方式"><a href="#退出应用的几种方式" class="headerlink" title="退出应用的几种方式"></a>退出应用的几种方式</h2><p>Andorid 退出应用的方式很多，常见的也就下面四种。</p>
+<ul>
+<li><p>System.exit(0) 使用系统的方法，强制退出<br><code>System.exit(0)</code> 表示的是终止程序，终止当前正在运行的 Java 虚拟机，在  Java 中我们也使用这种方式来关闭整个应用，在前期很多开发人员都是使用这种方式，我自己在开发项目过程中也用过这种方式来退出，但是有时候会在部分机型中，当退出应用后弹出应用程序崩溃的对话框，有时退出后还会再次启动，少部分的用户体验不太好。但现在也依旧还会有少部分的开发人员会使用这种方式，因为使用方式很简单，只需要在需要退出的地方加上这句代码就行。</p>
+</li>
+<li><p>抛出异常，强制退出<br>这种方式现在基本上已经看不到了，用户体验比第一种方式更差，就是让抛出异常、是系统崩溃、从而达到退出应用的效果</p>
+</li>
+<li><p>使用 Application 退出<br>目前比较常用方法之一，我们都知道 <code>Application</code> 是 <code>Android</code> 的系统组件，当应用程序启动时，会自动帮我们创建一个 <code>Application</code>，而且一个应用程序只能存在一个 <code>Application</code> ，它的生命周期也是最长的，如果需要使用自己创建的 <code>Application</code> 时，这个时候我们只需要在 <code>Androidmanifest.xml</code> 中的 <application>  标签中添加 name 属性：把创建的 <code>Application</code> 完整的包名 + 类名放进了就行了。</application></p>
+</li>
+<li><p>使用广播退出<br>使用广播来实现退出应用程序，其实实现的思路相对于第三种更简单，我们编写一个 <code>BaseActivity</code>，让其他的 <code>Activity</code> 都继承于它，当我需要退出时，我们就销毁 <code>BaseActivity</code>，那么其他继承与它的 <code>Activity</code> 都会销毁。</p>
+</li>
+</ul>
+<p>四种方式的代码也就不多提，需要的自己去<a href="http://blog.csdn.net/u013804382/article/details/52788900" target="_blank" rel="external">Android：销毁所有的Activity退出应用程序几种方式</a></p>
+<h2 id="莫名其妙重启？"><a href="#莫名其妙重启？" class="headerlink" title="莫名其妙重启？"></a>莫名其妙重启？</h2><p>上面的场景中说到了，再部分手机上会出现崩溃后自动重启的情况，这让我们很不好控制。经本人测试，在 Android 的 API 21 ( Android 5.0 ) 以下，Crash 会直接退出应用，<strong>但是在 API 21 ( Android 5.0 ) 以上，系统会遵循以下原则进行重启：</strong></p>
+<ul>
+<li>包含 Service，如果应用 Crash 的时候，运行着 Service，那么系统会重新启动 Service。</li>
+<li>不包含 Service，只有一个 Activity，那么系统不会重新启动该 Activity。</li>
+<li>不包含 Service，但当前堆栈中存在两个 Activity：Act1 -&gt; Act2，如果 Act2 发生了 Crash ，那么系统会重启 Act1。</li>
+<li>不包含 Service，但是当前堆栈中存在三个 Activity：Act1 -&gt; Act2 -&gt; Act3，如果 Act3 崩溃，那么系统会重启 Act2，并且 Act1 依然存在，即可以从重启的 Act2 回到 Act1。</li>
+</ul>
+<p>在这样的情况下，我们或许会有两种需求：</p>
+<ul>
+<li>崩溃后不允许重启</li>
+<li>崩溃后需要重启</li>
+</ul>
+<h2 id="怎么办"><a href="#怎么办" class="headerlink" title="怎么办"></a>怎么办</h2><p>翻看 API 我们发现，Java 中存在一个 <code>UncaughtExceotionHandler</code> 的接口，而在 Android 中我们沿用了它，我们可以采用这个接口实现我们想要的功能。<br>（为了方便，我把它做成了库，传送门：<a href="https://github.com/nanchen2251/AppManager" target="_blank" rel="external">https://github.com/nanchen2251/AppManager</a>）</p>
+<h2 id="讲一些核心"><a href="#讲一些核心" class="headerlink" title="讲一些核心"></a>讲一些核心</h2><h4 id="CrashApplication"><a href="#CrashApplication" class="headerlink" title="CrashApplication"></a>CrashApplication</h4><p>首先是我们的 <code>CrashApplication</code> 类，因为我们崩溃的时候需要结束程序后再重启，所以我们需要退出应用，这里我们采用上面的第三种方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">public class CrashApplication extends Application &#123;</div><div class="line">    private List&lt;Activity&gt; mActivityList;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;</div><div class="line">        super.onCreate();</div><div class="line">        mActivityList = new ArrayList&lt;&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 添加单个Activity</div><div class="line">     */</div><div class="line">    public void addActivity(Activity activity) &#123;</div><div class="line">        // 为了避免重复添加，需要判断当前集合是否满足不存在该Activity</div><div class="line">        if (!mActivityList.contains(activity)) &#123;</div><div class="line">            mActivityList.add(activity); // 把当前Activity添加到集合中</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 销毁单个Activity</div><div class="line">     */</div><div class="line">    public void removeActivity(Activity activity) &#123;</div><div class="line">        // 判断当前集合是否存在该Activity</div><div class="line">        if (mActivityList.contains(activity)) &#123;</div><div class="line">            mActivityList.remove(activity); // 从集合中移除</div><div class="line">            if (activity != null)&#123;</div><div class="line">                activity.finish(); // 销毁当前Activity</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 销毁所有的Activity</div><div class="line">     */</div><div class="line">    public void removeAllActivity() &#123;</div><div class="line">        // 通过循环，把集合中的所有Activity销毁</div><div class="line">        for (Activity activity : mActivityList) &#123;</div><div class="line">            if (activity != null)&#123;</div><div class="line">                activity.finish();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //杀死该应用进程</div><div class="line">        android.os.Process.killProcess(android.os.Process.myPid());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="UncaughtExceptionHandlerImpl"><a href="#UncaughtExceptionHandlerImpl" class="headerlink" title="UncaughtExceptionHandlerImpl"></a>UncaughtExceptionHandlerImpl</h4><p>我们当然少不了新建一个 <code>UncaughtExceptionHandlerImpl</code> 类去实现我们的 <code>UncaughtExceptionHandler</code> 接口，它必须实现我们的 <code>uncaughtException(thread, throwable)</code> 方法，我们接下来可以在这中间作文章。需要特别注意的是：<strong>重启必须清除堆栈内的 Activity。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 当 UncaughtException 发生时会转入该函数来处理</div><div class="line">     */</div><div class="line">    @SuppressWarnings(&quot;WrongConstant&quot;)</div><div class="line">    @Override</div><div class="line">    public void uncaughtException(Thread thread, Throwable ex) &#123;</div><div class="line">        if (!handleException(ex) &amp;&amp; mDefaultHandler != null) &#123;</div><div class="line">            // 如果用户没有处理则让系统默认的异常处理器来处理</div><div class="line">            mDefaultHandler.uncaughtException(thread, ex);</div><div class="line">        &#125; else &#123;</div><div class="line">            try &#123;</div><div class="line">                Thread.sleep(2000);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                Log.e(TAG, &quot;error : &quot;, e);</div><div class="line">            &#125;</div><div class="line">            if (mIsRestartApp) &#123; // 如果需要重启</div><div class="line">                Intent intent = new Intent(mContext.getApplicationContext(), mRestartActivity);</div><div class="line">                AlarmManager mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);</div><div class="line">                //重启应用，得使用PendingIntent</div><div class="line">                PendingIntent restartIntent = PendingIntent.getActivity(</div><div class="line">                        mContext.getApplicationContext(), 0, intent,</div><div class="line">                        Intent.FLAG_ACTIVITY_NEW_TASK);</div><div class="line">                mAlarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + mRestartTime,</div><div class="line">                        restartIntent); // 重启应用</div><div class="line">            &#125;</div><div class="line">            // 结束应用</div><div class="line">            ((CrashApplication) mContext.getApplicationContext()).removeAllActivity();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>我们的 <code>handleException(throwable)</code> 方法用于弹出 <code>Toast</code> 和收集 Crash 信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  /**</div><div class="line">     * 自定义错误处理，收集错误信息，发送错误报告等操作均在此完成</div><div class="line">     *</div><div class="line">     * @param ex</div><div class="line">     * @return true：如果处理了该异常信息；否则返回 false</div><div class="line">     */</div><div class="line">    private boolean handleException(final Throwable ex) &#123;</div><div class="line">        if (ex == null) &#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 使用 Toast 来显示异常信息</div><div class="line">        new Thread() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                Looper.prepare();</div><div class="line">                Toast.makeText(mContext, getTips(ex), Toast.LENGTH_LONG).show();</div><div class="line">                Looper.loop();</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div><div class="line"></div><div class="line"></div><div class="line">        //  如果用户不赋予外部存储卡的写权限导致的崩溃，会造成循环崩溃</div><div class="line">//        if (mIsDebug) &#123;</div><div class="line">//            // 收集设备参数信息</div><div class="line">//            collectDeviceInfo(mContext);</div><div class="line">//            // 保存日志文件</div><div class="line">//            saveCrashInfo2File(ex);</div><div class="line">//        &#125;</div><div class="line">        return true;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="封装好的使用"><a href="#封装好的使用" class="headerlink" title="封装好的使用"></a>封装好的使用</h2><h4 id="1、添加依赖"><a href="#1、添加依赖" class="headerlink" title="1、添加依赖"></a>1、添加依赖<br></h4><h5 id="Step-1-Add-it-in-your-root-build-gradle-at-the-end-of-repositories"><a href="#Step-1-Add-it-in-your-root-build-gradle-at-the-end-of-repositories" class="headerlink" title="Step 1. Add it in your root build.gradle at the end of repositories:"></a>Step 1. Add it in your root build.gradle at the end of repositories:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">		repositories &#123;</div><div class="line">			...</div><div class="line">			maven &#123; url <span class="string">'https://jitpack.io'</span> &#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h5 id="Step-2-Add-the-dependency"><a href="#Step-2-Add-the-dependency" class="headerlink" title="Step 2. Add the dependency"></a>Step 2. Add the dependency</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">	        compile <span class="string">'com.github.nanchen2251:AppManager:1.0.1'</span></div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h4 id="2、在需要使用的地方使用"><a href="#2、在需要使用的地方使用" class="headerlink" title="2、在需要使用的地方使用"></a>2、在需要使用的地方使用<br></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 设置崩溃后自动重启 APP</span></div><div class="line">UncaughtExceptionHandlerImpl.getInstance().init(<span class="keyword">this</span>, BuildConfig.DEBUG, <span class="keyword">true</span>, <span class="number">0</span>, MainActivity.class);</div></pre></td></tr></table></figure>
+<h4 id="3、你也可以禁止重启"><a href="#3、你也可以禁止重启" class="headerlink" title="3、你也可以禁止重启"></a>3、你也可以禁止重启</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 禁止重启UncaughtExceptionHandlerImpl.getInstance().init(this,BuildConfig.DEBUG);</span></div></pre></td></tr></table></figure>
+<p>欢迎关注我的技术公众号（公众号搜索nanchen），每天一篇 Android 资源分享。</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/nanchen2251/AppManager/raw/master/GIF.gif" alt="image"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/20/一文彻底搞懂-CoordinatorLayout-和-AppbarLayout-联动，让-Design-设计更简单/" rel="next" title="一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单">
+                <i class="fa fa-chevron-left"></i> 一文彻底搞懂 CoordinatorLayout 和 AppbarLayout 联动，让 Design 设计更简单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从四个应用场景说起"><span class="nav-number">2.</span> <span class="nav-text">从四个应用场景说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出应用的几种方式"><span class="nav-number">3.</span> <span class="nav-text">退出应用的几种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#莫名其妙重启？"><span class="nav-number">4.</span> <span class="nav-text">莫名其妙重启？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么办"><span class="nav-number">5.</span> <span class="nav-text">怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲一些核心"><span class="nav-number">6.</span> <span class="nav-text">讲一些核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CrashApplication"><span class="nav-number">6.0.1.</span> <span class="nav-text">CrashApplication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UncaughtExceptionHandlerImpl"><span class="nav-number">6.0.2.</span> <span class="nav-text">UncaughtExceptionHandlerImpl</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装好的使用"><span class="nav-number">7.</span> <span class="nav-text">封装好的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、添加依赖"><span class="nav-number">7.0.1.</span> <span class="nav-text">1、添加依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Step-1-Add-it-in-your-root-build-gradle-at-the-end-of-repositories"><span class="nav-number">7.0.1.1.</span> <span class="nav-text">Step 1. Add it in your root build.gradle at the end of repositories:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step-2-Add-the-dependency"><span class="nav-number">7.0.1.2.</span> <span class="nav-text">Step 2. Add the dependency</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、在需要使用的地方使用"><span class="nav-number">7.0.2.</span> <span class="nav-text">2、在需要使用的地方使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、你也可以禁止重启"><span class="nav-number">7.0.3.</span> <span class="nav-text">3、你也可以禁止重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果图"><span class="nav-number">8.</span> <span class="nav-text">效果图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/';
+          this.page.identifier = '2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/';
+          this.page.title = '如果优雅地退出应用和处理崩溃异常并重启';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
