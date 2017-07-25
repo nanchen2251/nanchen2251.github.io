@@ -1,0 +1,991 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="7.0适配," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
+<meta name="keywords" content="7.0适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-c3a54860b9adbf0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-e3e9452a7820c9b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-4cc20dc7a8ab00ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:updated_time" content="2017-07-25T06:34:29.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+<meta name="twitter:description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/"/>
+
+
+
+
+
+  <title>Android 7.0 调用系统相机崩溃解决 android.os.FileUriException | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 7.0 调用系统相机崩溃解决 android.os.FileUriException</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T14:32:02+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/相机适配/" itemprop="url" rel="index">
+                    <span itemprop="name">相机适配</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" class="leancloud_visitors" data-flag-title="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近由于廖子尧忙于自己公司的事情和 <a href="https://github.com/jeasonlzy/okhttp-OkGo" target="_blank" rel="external">OkGo</a> (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 <a href="https://github.com/jeasonlzy/ImagePicker" target="_blank" rel="external">ImagePicker</a>（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。</p>
+<p>　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有义务时刻准备自己调整 TargetSdkVersion 为最近的一个，于是从之前的 23 直接提高到了 25 。</p>
+<p>　 和往常一样，每当我们调整 TargetSdkVersion，我们需要检查我们的代码的每一部分工作的非常好。如果你只是简单地更改代码，我可以说，你的应用程序正在崩溃或故障的高风险。在这种情况下，当你改变你的应用程序的 TargetSdkVersion 24，我们需要检查每一个功能完美的作品在 Android 的牛轧糖（24）以上。<br>    拿到 7.0 的小米 5 测试机后，迫不及待对自己维护的 <a href="https://github.com/jeasonlzy/ImagePicker" target="_blank" rel="external">ImagePicker</a> 测试了一个遍，然而的确和大家所提的 issuse 一样，在调用系统相机的时候直接崩溃了。</p>
+<h2 id="到底是什么引发了-7-0-相机崩溃"><a href="#到底是什么引发了-7-0-相机崩溃" class="headerlink" title="到底是什么引发了 7.0 相机崩溃"></a>到底是什么引发了 7.0 相机崩溃</h2><p>跟进错误日志到源码发现，在我们调用相机获取 Uri 的时候发生了崩溃。<br>　　<img src="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>　　原因很明显，file:// 不被允许作为一个附加的 Uri 的意图，否则会抛出 FileUriExposedException 。</p>
+<h2 id="为什么在-Android-Nougat-下-file-不被允许？"><a href="#为什么在-Android-Nougat-下-file-不被允许？" class="headerlink" title="为什么在 Android Nougat 下 file:// 不被允许？"></a>为什么在 Android Nougat 下 file:// 不被允许？</h2><p> 你可能会很好奇为什么 Android 团队决定改变这种行为。<br>     其实背后有一个很好的理由，如果文件路径被发送到目标应用程序（相机应用程序在这种情况下），文件将完全访问通过相机应用程序的过程，而不仅仅只有发起者能收到。<br>     <img src="http://upload-images.jianshu.io/upload_images/3994917-c3a54860b9adbf0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>    但让我们考虑一下，实际上是由我们的应用程序去启动摄像头拍照，并保存作为我们的应用程序的代表文件。因此，该文件的访问权限应该是我们的应用程序而不是摄像头应用程序本身。这就是为什么现在 file:// 在 TargetSdkVersion 24 中要求每一位开发者都去完成这个任务。</p>
+<h2 id="那到底怎么解决？"><a href="#那到底怎么解决？" class="headerlink" title="那到底怎么解决？"></a>那到底怎么解决？</h2><p>既然 file:// 不再被允许，那我们应该怎么处理呢？答案是通过 FileProvider 去解决它。<br>     <img src="http://upload-images.jianshu.io/upload_images/3994917-e3e9452a7820c9b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="我们应该怎么让-FileProvider-解决好它。"><a href="#我们应该怎么让-FileProvider-解决好它。" class="headerlink" title="我们应该怎么让 FileProvider 解决好它。"></a>我们应该怎么让 FileProvider 解决好它。</h3><h5 id="1、首先是在-AndroidManifest-xml-中申明"><a href="#1、首先是在-AndroidManifest-xml-中申明" class="headerlink" title="1、首先是在 AndroidManifest.xml 中申明"></a>1、首先是在 AndroidManifest.xml 中申明</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;provider</div><div class="line">            android:authorities="$&#123;applicationId&#125;.provider"</div><div class="line">            android:name=".ImagePickerProvider"</div><div class="line">            android:exported="false"</div><div class="line">            android:grantUriPermissions="true"&gt;</div><div class="line">            &lt;meta-data</div><div class="line">                android:name="android.support.FILE_PROVIDER_PATHS"</div><div class="line">                android:resource="@xml/provider_paths"/&gt;</div><div class="line">        &lt;/provider&gt;</div></pre></td></tr></table></figure>
+<h5 id="2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。"><a href="#2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。" class="headerlink" title="2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。"></a>2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;paths xmlns:android="http://schemas.android.com/apk/res/android"&gt;</div><div class="line">    &lt;external-path name="external_files" path="."/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure>
+<h5 id="3、在适当的地方去替换它"><a href="#3、在适当的地方去替换它" class="headerlink" title="3、在适当的地方去替换它"></a>3、在适当的地方去替换它</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Uri uri;</div><div class="line"><span class="keyword">if</span> (VERSION.SDK_INT &lt;= VERSION_CODES.M)&#123;</div><div class="line">    uri = Uri.fromFile(takeImageFile);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider</div><div class="line">     * 并且这样可以解决MIUI系统上拍照返回size为0的情况</div><div class="line">     */</div><div class="line">    uri = FileProvider.getUriForFile(activity, ProviderUtil.getFileProviderName(activity), takeImageFile);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Log.e(<span class="string">"nanchen"</span>,ProviderUtil.getFileProviderName(activity));</div><div class="line">takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);</div></pre></td></tr></table></figure>
+<h2 id="几点说明"><a href="#几点说明" class="headerlink" title="几点说明"></a>几点说明</h2><p>对于上面的三步操作，做几点说明：<br>      1、在 AndroidManifest.xml 文件中对 Provider 的 name 属性申明为什么是 .ImagePickerProvider (实际上这是一个继承自 FileProvider 但什么也没实现的类) 而不直接把 name 赋为 android.support.v4.content.FileProvider ？<br>       这是因为 ImagePicker 作为一个图片选择框架，而你的 App 中同样可能会有申明，为了避免 Android Studio 在编译的时候 merge 各个 Module 导致冲突，这里保险起见的申明了一个不一样的名字。</p>
+<p>2、为什么在 AndroidManifest.xml 文件中申明的 authority 属性为 ${applicationId}.provider ， 而不是固定的名字。</p>
+<p>这是因为在 Android 中，要求 authority 必须是唯一的，如果你在定义一个 provider 的时候为它指定一个唯一的 authority，这里且拿 ImagePicker 做比方，假如你在一个 App 上使用了 ImagePicker 作为图片选择框架，而你在另外一个应用中再次使用 ImagePicker 的时候，系统会检查当然已安装应用的 authority 是否和你要安装应用的 authority 相同，如果相同则会弹出下面的警告，并安装失败。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-4cc20dc7a8ab00ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>所以我们在定义 authorities 的时候采用 ApplicationId + Provider 的形式，在获取 authorities 的时候，我们可以通过包名 + Provider 的方式获取。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.lzy.imagepicker.util;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.content.Context;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用于解决 Provider 冲突的 util</div><div class="line"> *</div><div class="line"> * Author: nanchen</div><div class="line"> * Email: liushilin520@foxmail.com</div><div class="line"> * Date: 2017-03-22  18:55</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderUtil</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getFileProviderName</span><span class="params">(Context context)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> context.getPackageName()+<span class="string">".provider"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>以上便解决了 Android N 的相机崩溃问题，如有写的不对的地方，欢迎大家在评论区留言。<br>欢迎关注我的技术公众号（公众号搜索nanchen），每天一篇 Android 资源分享。</p>
+<p><img src="http://mmbiz.qpic.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/7-0适配/" rel="tag"># 7.0适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/" rel="next" title="MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底">
+                <i class="fa fa-chevron-left"></i> MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#到底是什么引发了-7-0-相机崩溃"><span class="nav-number">2.</span> <span class="nav-text">到底是什么引发了 7.0 相机崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么在-Android-Nougat-下-file-不被允许？"><span class="nav-number">3.</span> <span class="nav-text">为什么在 Android Nougat 下 file:// 不被允许？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那到底怎么解决？"><span class="nav-number">4.</span> <span class="nav-text">那到底怎么解决？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们应该怎么让-FileProvider-解决好它。"><span class="nav-number">4.1.</span> <span class="nav-text">我们应该怎么让 FileProvider 解决好它。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、首先是在-AndroidManifest-xml-中申明"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">1、首先是在 AndroidManifest.xml 中申明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、在适当的地方去替换它"><span class="nav-number">4.1.0.3.</span> <span class="nav-text">3、在适当的地方去替换它</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几点说明"><span class="nav-number">5.</span> <span class="nav-text">几点说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">6.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/';
+          this.page.identifier = '2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/';
+          this.page.title = 'Android 7.0 调用系统相机崩溃解决 android.os.FileUriException';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1103 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="相机适配," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面昨天也是为大家分享了 7.0 相机适配，今天就来为大家讲讲 Android 之相机适配。  提起 Android 调用系统相机拍照上传图片或者是显示图片，想必任何一位开发 Android 的朋友都不会陌生，基本这个功能已经涵盖各个应用了，今天，我就来给大家聊聊网上并不多见却有经常听到大家吐槽的问题。 拍照功能实现对于拍照功能的实现方式我这里就不多谈了，无非两种，一种是利用相机的 API 来">
+<meta name="keywords" content="相机适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="写在前面昨天也是为大家分享了 7.0 相机适配，今天就来为大家讲讲 Android 之相机适配。  提起 Android 调用系统相机拍照上传图片或者是显示图片，想必任何一位开发 Android 的朋友都不会陌生，基本这个功能已经涵盖各个应用了，今天，我就来给大家聊聊网上并不多见却有经常听到大家吐槽的问题。 拍照功能实现对于拍照功能的实现方式我这里就不多谈了，无非两种，一种是利用相机的 API 来">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-a91d652775adf191.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-601848126e5e539d.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-0c721d0680978f2d.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-46faee07dd4eff7b.png">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/0?wx_fmt=jpeg">
+<meta property="og:updated_time" content="2017-07-25T06:30:57.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底">
+<meta name="twitter:description" content="写在前面昨天也是为大家分享了 7.0 相机适配，今天就来为大家讲讲 Android 之相机适配。  提起 Android 调用系统相机拍照上传图片或者是显示图片，想必任何一位开发 Android 的朋友都不会陌生，基本这个功能已经涵盖各个应用了，今天，我就来给大家聊聊网上并不多见却有经常听到大家吐槽的问题。 拍照功能实现对于拍照功能的实现方式我这里就不多谈了，无非两种，一种是利用相机的 API 来">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3994917-a91d652775adf191.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/"/>
+
+
+
+
+
+  <title>MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底 | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T14:29:32+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/相机适配/" itemprop="url" rel="index">
+                    <span itemprop="name">相机适配</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/" class="leancloud_visitors" data-flag-title="MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>昨天也是为大家分享了 <a href="http://www.jianshu.com/p/57ba0d1511b9" target="_blank" rel="external">7.0 相机适配</a>，今天就来为大家讲讲 Android 之相机适配。 </p>
+<p>提起 Android 调用系统相机拍照上传图片或者是显示图片，想必任何一位开发 Android 的朋友都不会陌生，基本这个功能已经涵盖各个应用了，今天，我就来给大家聊聊网上并不多见却有经常听到大家吐槽的问题。</p>
+<h2 id="拍照功能实现"><a href="#拍照功能实现" class="headerlink" title="拍照功能实现"></a>拍照功能实现</h2><p>对于拍照功能的实现方式我这里就不多谈了，无非两种，一种是利用相机的 API 来自定义相机，另一种是利用 Intent 调用系统指定的相机拍照。而这两种方式的实现网上搜索一大把，我就不在这里啰嗦了。</p>
+<h2 id="有没有相机可用？"><a href="#有没有相机可用？" class="headerlink" title="有没有相机可用？"></a>有没有相机可用？</h2><p>前面讲到我们是调用系统指定的相机 APP 来拍照，那么系统是否存在可以被我们调用的 APP 呢？这个我们不敢确定，毕竟 Android 奇葩问题多，还真有遇到过这种极端的情况导致闪退的。虽然很极端，但作为客户端人员还是要进行处理，方式有二：</p>
+<ul>
+<li>调用相机时，简单粗暴的 try-catch</li>
+<li>调用相机前，检测系统有没有相机 APP 可用</li>
+</ul>
+<p>try-catch 这种粗暴的方式大家肯定很熟悉了，那么要如何检测系统有没有相机 APP 可用呢？系统在 PackageManager 里为我们提供这样一个 API：<br><img src="http://upload-images.jianshu.io/upload_images/3994917-a91d652775adf191.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>通过这样一个 API ，可以知道系统是否存在 Action 为 <code>MediaStore.ACTION_IMAGE_CAPTURE</code> 的 Intent 可以唤起的拍照界面，具体实现代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 判断系统中是否存在可以启动的相机应用</div><div class="line">     *</div><div class="line">     * @return 存在返回true，不存在返回false</div><div class="line">     */</div><div class="line">    public boolean hasCamera() &#123;</div><div class="line">        PackageManager packageManager = mActivity.getPackageManager();</div><div class="line">        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</div><div class="line">        List&lt;ResolveInfo&gt; list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);</div><div class="line">        return list.size() &gt; 0;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="拍出来的照片“歪了”！！！"><a href="#拍出来的照片“歪了”！！！" class="headerlink" title="拍出来的照片“歪了”！！！"></a>拍出来的照片“歪了”！！！</h2><p>经常会遇到一种情况，拍照时看到照片是正的，但是当我们的 APP 获取到这张照片时，却发现旋转了 90 度（也有可能是 180、270，不过 90 度比较多见，貌似都是由于手机传感器导致的）。很多童鞋对此感到很困扰，因为不是所有手机都会出现这种情况，就算会是出现这种情况的手机上，也并非每次必现。要怎么解决这个问题呢？从解决的思路上看，只要获取到照片旋转的角度，利用 Matrix 来进行角度纠正即可。那么问题来了，要怎么知道照片旋转的角度呢？细心的童鞋可能会发现，拍完一张照片去到相册点击属性查看，能看到下面这样一堆关于照片的属性数据。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-601848126e5e539d.png" alt=""><br>没错，这里面就有一个旋转角度，倘若拍照后保存的成像照片文件发生了角度旋转，这个图片的属性参数就能告诉我们到底旋转了多少度。只要获取到这个角度值，我们就能进行纠正的工作了。 Android 系统提供了 <code>ExifInterface</code> 类来满足获取图片各个属性的操作。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-0c721d0680978f2d.png" alt=""><br>通过 <code>ExifInterface</code> 类拿到 <code>TAG_ORIENTATION</code> 属性对应的值，即为我们想要得到旋转角度。再根据利用 <code>Matrix</code> 进行旋转纠正即可。实现代码大致如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * 获取图片的旋转角度</div><div class="line">     *</div><div class="line">     * @param path 图片绝对路径</div><div class="line">     * @return 图片的旋转角度</div><div class="line">     */</div><div class="line">    public static int getBitmapDegree(String path) &#123;</div><div class="line">        int degree = 0;</div><div class="line">        try &#123;</div><div class="line">            // 从指定路径下读取图片，并获取其EXIF信息</div><div class="line">            ExifInterface exifInterface = new ExifInterface(path);</div><div class="line">            // 获取图片的旋转信息</div><div class="line">            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);</div><div class="line">            switch (orientation) &#123;</div><div class="line">                case ExifInterface.ORIENTATION_ROTATE_90:</div><div class="line">                    degree = 90;</div><div class="line">                    break;</div><div class="line">                case ExifInterface.ORIENTATION_ROTATE_180:</div><div class="line">                    degree = 180;</div><div class="line">                    break;</div><div class="line">                case ExifInterface.ORIENTATION_ROTATE_270:</div><div class="line">                    degree = 270;</div><div class="line">                    break;</div><div class="line">            &#125;</div><div class="line">        &#125; catch (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return degree;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 将图片按照指定的角度进行旋转</div><div class="line">     *</div><div class="line">     * @param bitmap 需要旋转的图片</div><div class="line">     * @param degree 指定的旋转角度</div><div class="line">     * @return 旋转后的图片</div><div class="line">     */</div><div class="line">    public static Bitmap rotateBitmapByDegree(Bitmap bitmap, int degree) &#123;</div><div class="line">        // 根据旋转角度，生成旋转矩阵</div><div class="line">        Matrix matrix = new Matrix();</div><div class="line">        matrix.postRotate(degree);</div><div class="line">        // 将原始图片按照旋转矩阵进行旋转，并得到新的图片</div><div class="line">        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);</div><div class="line">        if (bitmap != null &amp;&amp; !bitmap.isRecycled()) &#123;</div><div class="line">            bitmap.recycle();</div><div class="line">        &#125;</div><div class="line">        return newBitmap;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><code>ExifInterface</code> 能拿到的信息远远不止旋转角度，其他的参数感兴趣的童鞋可以看看 API 文档。</p>
+<h2 id="拍完照怎么闪退了？"><a href="#拍完照怎么闪退了？" class="headerlink" title="拍完照怎么闪退了？"></a>拍完照怎么闪退了？</h2><p>曾在小米和魅族的某些机型上遇到过这样的问题，调用系统相机拍照，拍完点击确定回到自己的 APP 里面却莫名奇妙的闪退了。这种闪退有两个特点：<br>没有什么错误日志（有些机子啥日志都没有，有些机子会出来个空异常错误日志）；<br>同个机子上非必现（有时候怎么拍都不闪退，有时候一拍就闪退）；</p>
+<p>对待非必现问题往往比较头疼，当初遇到这样的问题也是非常不解。上网搜罗了一圈也没方案，后来留意到一个比较有意思信息：有些系统厂商的 ROM 会给自带相机应用做优化，当某个 APP 通过 Intent 进入相机拍照界面时，系统会把这个 APP 当前最上层的 Activity 销毁回收。（注意：我遇到的情况是有时候很快就回收掉，有时候怎么等也不回收，没有什么必现规律）为了验证一下，便在启动相机的 Activity 中对 <code>onDestory()</code> 方法进行加 Log 。果不其然，终于发现进入拍照界面的时候 <code>onDestory()</code> 方法被执行了。所以，前面提到的闪退基本可以推测是 Activity 被回收导致某些非UI控件的成员变量为空导致的。（有些机子会报出空异常错误日志，但是有些机子闪退了什么都不报，是不是觉得很奇葩！）<br>既然涉及到 Activity 被回收的问题，自然要想起 <code>onSaveInstanceState()</code> 和 <code>onRestoreInstanceState()</code> 这对方法。去到 <code>onSaveInstanceState()</code> 把数据保存，并在 <code>onRestoreInstanceState()</code> 方法中进行恢复即可。大体代码思路如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">        super.onSaveInstanceState(outState);</div><div class="line">        mRestorePhotoFile = mCapturePhotoHelper.getPhoto();</div><div class="line">        if (mRestorePhotoFile != null) &#123;</div><div class="line">            outState.putSerializable(EXTRA_RESTORE_PHOTO, mRestorePhotoFile);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onRestoreInstanceState(Bundle savedInstanceState) &#123;</div><div class="line">        super.onRestoreInstanceState(savedInstanceState);</div><div class="line">        mRestorePhotoFile = (File) savedInstanceState.getSerializable(EXTRA_RESTORE_PHOTO);</div><div class="line">        mCapturePhotoHelper.setPhoto(mRestorePhotoFile);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>对于 <code>onSaveInstanceState()</code> 和 <code>onRestoreInstanceState()</code> 方法的作用还不熟悉的童鞋，网上资料很多，可以自行搜索。<br>到这里，可能有童鞋要问，这种闪退并不能保证复现，我要怎么知道问题所在和是否修复了呢？我们可以去到开发者选项里开启不保留活动这一项进行调试验证。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-46faee07dd4eff7b.png" alt=""><br>它的作用是保留当前和用户接触的 Activity ，并将目前无法和用户交互 Activity 进行销毁回收。打开这个调试选项就可以满足验证的需求，当你的 app 的某个 Activity 跳转到拍照的 Activity 后，这个 Activity 立马就会被系统销毁回收，这样就可以很好的完全复现闪退的场景，帮助开发者确认问题有没有修复了。<br>涉及到 Activity 被销毁，还想提一下代码实现上的问题。假设当前有两个 Activity ，MainActivity 中有个 Button ，点击可以调用系统相机拍照并显示到 PreviewActivity 进行预览。有下面两种实现方案：</p>
+<ul>
+<li>MainActivity 中点击 Button 后，启动系统相机拍照，并在 MainActivity 的 <code>onActivityResult()</code> 方法中获取拍下来的照片，并启动跳转到 PreviewActivity 界面进行效果预览；</li>
+<li>MainActivity 中点击 Button 后，启动 PreviewActivity 界面，在 PreviewActivity 的 <code>onCreate()</code>（或者 <code>onStart()</code>、<code>onResume()</code>）方法中启动系统相机拍照，然后在 PreviewActivity 的 <code>onActivityResult()</code> 方法中获取拍下来的照片进行预览；</li>
+</ul>
+<p>上面两种方案得到的实现效果是一模一样的，但是第二种方案却存在很大的问题。因为启动相机的代码放在 <code>onCreate()</code>（或者 <code>onStart()</code> 、<code>onResume()</code>）中，当进入拍照界面后，PreviewActivity 随即被销毁，拍完照确认后回到 PreviewActivity 时，被销毁的 PreviewActivity 需要重建，又要走一遍  <code>onCreate()</code> 、<code>onStart()</code> 、<code>onResume()</code>，又调用了启动相机拍照的代码，周而复始的进入了死循环状态。为了避免让你的用户抓狂，果断明智的选择方案一。<br>以上这种情况提到调用系统拍照时，Activity 就回收的情况，在小米 4S 和小米 4 LTE 机子上（MIUI 的版本是 7.3，Android 系统版本是 6.0）出现的概率很高。 所以，建议看到此文的童鞋也可以去验证适配一下。</p>
+<h2 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h2><p>图片无法显示这个问题也是略坑，如何坑法？往下看，同样是在小米 4S 和小米 4 LTE 机子上（MIUI 的版本是 7.3，Android 系统版本是 6.0）出现概率很高的场景（当然，不保证其他机子没出现过）。按照我们前面提到的业务场景，调用相机拍照完成后，我们的 APP 会有一个预览图片的界面。但是在用了小米的机子进行拍照后，自己 APP 的预览界面却怎么也无法显示出照片来，同样是相当郁闷，郁闷完后还是要一步一步去排查解决问题的！为此，需要一步一步猜测验证问题所在。</p>
+<ul>
+<li>猜测一：没有拿到照片路径，所以无法显示？<br>直接断点打 log 跟踪，猜测一很快被推翻，路径是有的。</li>
+<li>猜测二：Bitmap太大了，无法显示？<br>直接在 Android Studio 的 log 控制台仔细的观察了一下系统 log ，发现了一些蛛丝马迹<figure class="highlight plain"><figcaption><span>Bitmap too large to be uploaded into a texture```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">每次拍完照片，都会出现上面这样的 log ，果然，因为图片太大而导致在 ImageView 上无法显示。到这里有童鞋要吐槽了，没对图片的采样率 `inSampleSize` 做处理？天地良心啊，绝对做处理了，直接看代码：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<pre><code> * 压缩Bitmap的大小
+ *
+ * @param imagePath     图片文件路径
+ * @param requestWidth  压缩到想要的宽度
+ * @param requestHeight 压缩到想要的高度
+ * @return
+ */
+public static Bitmap decodeBitmapFromFile(String imagePath, int requestWidth, int requestHeight) {
+    if (!TextUtils.isEmpty(imagePath)) {
+        if (requestWidth &lt;= 0 || requestHeight &lt;= 0) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            return bitmap;
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;//不加载图片到内存，仅获得图片宽高
+        BitmapFactory.decodeFile(imagePath, options);
+        options.inSampleSize = calculateInSampleSize(options, requestWidth, requestHeight); //计算获取新的采样率
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(imagePath, options);
+
+    } else {
+        return null;
+    }
+}
+
+public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+    Log.i(TAG, &quot;height: &quot; + height);
+    Log.i(TAG, &quot;width: &quot; + width);
+    if (height &gt; reqHeight || width &gt; reqWidth) {
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        while ((halfHeight / inSampleSize) &gt; reqHeight &amp;&amp; (halfWidth / inSampleSize) &gt; reqWidth) {
+            inSampleSize *= 2;
+        }
+
+        long totalPixels = width * height / inSampleSize;
+
+        final long totalReqPixelsCap = reqWidth * reqHeight * 2;
+
+        while (totalPixels &gt; totalReqPixelsCap) {
+            inSampleSize *= 2;
+            totalPixels /= 2;
+        }
+    }
+    return inSampleSize;
+}
+</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">瞄了代码后，是不是觉得没有问题了？没错，`inSampleSize` 确确实实经过处理，那为什么图片还是太大而显示不出来呢？ `requestWidth`、`requestHeight` 设置得太大导致 `inSampleSize` 太小了？不可能啊，我都试着把长宽都设置成 100 了还是没法显示！干脆，直接打印 `inSampleSize` 值，一打印，`inSampleSize` 值居然为 1 。 我去，彻底打脸了，明明说好的处理过了，居然还是 1 ！！！！为了一探究竟，干脆加 log 。</div></pre></td></tr></table></figure>
+<p>public static Bitmap decodeBitmapFromFile(String imagePath, int requestWidth, int requestHeight) {<br>        if (!TextUtils.isEmpty(imagePath)) {<br>            Log.i(TAG, “requestWidth: “ + requestWidth);<br>            Log.i(TAG, “requestHeight: “ + requestHeight);<br>            if (requestWidth &lt;= 0 || requestHeight &lt;= 0) {<br>                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);<br>                return bitmap;<br>            }<br>            BitmapFactory.Options options = new BitmapFactory.Options();<br>            options.inJustDecodeBounds = true;//不加载图片到内存，仅获得图片宽高<br>            BitmapFactory.decodeFile(imagePath, options);<br>            Log.i(TAG, “original height: “ + options.outHeight);<br>            Log.i(TAG, “original width: “ + options.outWidth);<br>            options.inSampleSize = calculateInSampleSize(options, requestWidth, requestHeight); //计算获取新的采样率<br>            Log.i(TAG, “inSampleSize: “ + options.inSampleSize);<br>            options.inJustDecodeBounds = false;<br>            return BitmapFactory.decodeFile(imagePath, options);</p>
+<pre><code>    } else {
+        return null;
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">运行打印出来的日志如下：</div><div class="line">![](http://upload-images.jianshu.io/upload_images/3994917-95ae2f2a84cd3771.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</div><div class="line">图片原来的宽高居然都是 -1 ，真是奇葩了！难怪，`inSampleSize` 经过处理之后结果还是 1 。狠狠的吐槽了之后，总是要回来解决问题的。那么，图片的宽高信息都丢失了，我去哪里找啊？ 像下面这样？</div></pre></td></tr></table></figure>
+<p>public static Bitmap decodeBitmapFromFile(String imagePath, int requestWidth, int requestHeight) {<br>            …<br>            BitmapFactory.Options options = new BitmapFactory.Options();<br>            options.inJustDecodeBounds = true;//不加载图片到内存，仅获得图片宽高<br>            Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);<br>            bitmap.getWidth();<br>            bitmap.getHeight();<br>            …<br>        } else {<br>            return null;<br>        }<br>    }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">no，此方案行不通，`inJustDecodeBounds = true` 时，`BitmapFactory` 获得 Bitmap 对象是 null；</div><div class="line">那要怎样才能获图片的宽高呢？前面提到的 `ExifInterface` 再次帮了我们大忙，通过它的下面两个属性即可拿到图片真正的宽高。</div><div class="line">![](http://upload-images.jianshu.io/upload_images/3994917-087d840ae8e23b7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</div><div class="line">顺手吐槽一下，为什么高不是 `TAG_IMAGE_HEIGHT` 而是 `TAG_IMAGE_LENGTH`。改良过后的代码实现如下：</div></pre></td></tr></table></figure></p>
+<p>public static Bitmap decodeBitmapFromFile(String imagePath, int requestWidth, int requestHeight) {<br>        if (!TextUtils.isEmpty(imagePath)) {<br>            Log.i(TAG, “requestWidth: “ + requestWidth);<br>            Log.i(TAG, “requestHeight: “ + requestHeight);<br>            if (requestWidth &lt;= 0 || requestHeight &lt;= 0) {<br>                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);<br>                return bitmap;<br>            }<br>            BitmapFactory.Options options = new BitmapFactory.Options();<br>            options.inJustDecodeBounds = true;//不加载图片到内存，仅获得图片宽高<br>            BitmapFactory.decodeFile(imagePath, options);<br>            Log.i(TAG, “original height: “ + options.outHeight);<br>            Log.i(TAG, “original width: “ + options.outWidth);<br>            if (options.outHeight == -1 || options.outWidth == -1) {<br>                try {<br>                    ExifInterface exifInterface = new ExifInterface(imagePath);<br>                    int height = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的高度<br>                    int width = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的宽度<br>                    Log.i(TAG, “exif height: “ + height);<br>                    Log.i(TAG, “exif width: “ + width);<br>                    options.outWidth = width;<br>                    options.outHeight = height;<br>                } catch (IOException e) {<br>                    e.printStackTrace();<br>                }<br>            }<br>            options.inSampleSize = calculateInSampleSize(options, requestWidth, requestHeight); //计算获取新的采样率<br>            Log.i(TAG, “inSampleSize: “ + options.inSampleSize);<br>            options.inJustDecodeBounds = false;<br>            return BitmapFactory.decodeFile(imagePath, options);</p>
+<pre><code>    } else {
+        return null;
+    }
+}
+</code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">再看一下，打印出来的 log</div><div class="line">![](http://upload-images.jianshu.io/upload_images/3994917-bd81e24a606e62eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</div><div class="line"></div><div class="line">以上总结了这么些身边童鞋经常问起，但网上又不多见的适配问题，希望可以帮到一些开发童鞋少走弯路。文中多次提到小米的机子，并不代表只有MIUI上有这样的问题存在，仅仅只是因为我身边带的几部机子大都是小米的。对待适配问题，在搜索引擎都无法提供多少有效的信息时，我们只能靠断点、打 log、观察控制台的日志、以及 API 文档来寻找一些蛛丝马迹作为突破口，相信办法总比困难多。</div><div class="line">以上内容采自：[There](http://www.jianshu.com/p/f269bcda335f)</div><div class="line">至于为什么基本全文 copy，是因为我觉得作者已经讲的特别清楚了，我没必要做二次重复，也只是给大家分享一下。</div><div class="line">那下面就让我来补充一下不一样的开发情景。</div><div class="line">## 如果同事写好了压缩九宫格显示图片呢？</div><div class="line">这时候你们大框架已经搞定了，只需要你传回一个文件的path，你可能会这样写：（下面所有代码都在 onActivityResult()` 方法）</div></pre></td></tr></table></figure>
+<p>if (null != imageGridAdapter.uri) {<br>    final String url = PhotoUtil.getImageUrlFromActivityResult(this, imageGridAdapter.uri);//这个方法可以拿到图片的path<br>    Log.e(TAG, “onActivityResult: url:” + url);<br>    if (!TextUtils.isEmpty(url)) {<br>        file = new File(url);<br>        size = file.length();<br>        Log.e(TAG, “onActivityResult: size:” + size);<br>        if (size &gt; 0 ){<br>       　　 ImageItem imageItem = new ImageItem();<br>       　　 imageItem.ImageId = ImageItem.NEW_ID;<br>     　　   imageItem.PhotoPath = url;<br>     　　   imageGridAdapter.getmDataList().add(imageItem);<br>     　　   imageGridAdapter.notifyDataSetChanged();<br>   　　     imageGridAdapter.uri = null;<br>        }<br>　　}<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">好像没啥问题呀，拿到图片的 path，new 一个文件，如果文件 size = 0，则不显示，大于 0 说明图片存在，则显示图片，提示 UI 刷新。</div><div class="line">嗯，的确，绝大部分手机都测试通过了，然而在坑爹的部分MIUI系统上出现了，返回 size 为 0，进不到判断循环，自然不会显示那个图片。</div><div class="line">这时候肯定要到 google 上去搜上一圈，一圈下来收获不少，却没找到真正解决的办法。</div><div class="line">这里有位朋友就说啦，这个 size 为0，但是间隔一定的时间就可以 new 出 size 不为 0 的 file，而这个时间是不固定的。</div><div class="line">![](http://upload-images.jianshu.io/upload_images/3994917-0e8be83c0af5db51.png)</div><div class="line"></div><div class="line">![](http://upload-images.jianshu.io/upload_images/3994917-f99261d6f6f8a0fd.png)</div><div class="line">可见遇上这个坑的小伙伴也是尽心尽力，想方设法。</div><div class="line">所以我也尝试了这个方法，考虑到不能休眠主线程，就采用新开一个线程来延时处理，采用加载框，一旦 size 不为 0 了，才进行显示处理。</div><div class="line">可能图片出问题，所以我们设置一个最大休眠时间。代码为：（其中 flag 和 time 为全局变量）</div></pre></td></tr></table></figure></p>
+<p>flag = true;<br>    time = 0;<br>    final String url = PhotoUtil.getImageUrlFromActivityResult(this,<br>            imageGridAdapter.uri);<br>    if (size &lt;= 0) { // 如果size小于0出现了，则使用加载框<br>        new Thread(new Runnable() {<br>            @Override<br>            public void run() {<br>                runOnUiThread(new Runnable() {<br>                    @Override<br>                    public void run() {<br>                        showLoading(SendQuestionActivity.this);// 该方法为显示加载框<br>                    }<br>                });<br>                while (flag) {<br>                    // 设置延迟步长是0.5s<br>                    try {<br>                        Thread.sleep(500);<br>                        time += 0.5;<br>                        file = null;<br>                        file = new File(url);<br>                        size = file.length();<br>                        Log.e(TAG, “onActivityResult: size:” + size);<br>                        if (size &gt; 0 || time &gt;= 10) {<br>                            flag = false;<br>                        }<br>                    } catch (InterruptedException e) {<br>                        e.printStackTrace();<br>                    }<br>                }<br>                runOnUiThread(new Runnable() {<br>                    @Override<br>                    public void run() {<br>                        stopLoading();//该方法为取消加载框<br>                    }<br>                });</p>
+<pre><code>        }
+    }).start();
+}
+ImageItem imageItem = new ImageItem();
+imageItem.ImageId = ImageItem.NEW_ID;
+imageItem.PhotoPath = url;
+imageGridAdapter.getmDataList().add(imageItem);
+imageGridAdapter.notifyDataSetChanged();
+imageGridAdapter.uri = null;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">这样问题是得到解决啦，但是用户取消的时候 size 也为 0 呀，这样无疑是画蛇添足，用户取消拍照都要显示加载框 10s，想想都可怕！！！</div><div class="line"></div><div class="line">又听说在 new File 的前面加上下面的这句话可以解决，倒腾一番，然并卵。</div></pre></td></tr></table></figure>
+<p>// 小米4 LTE MIUI 7.0 版本下，file的size始终为0；通过提前获取ExifInterface信息，保证文件确实写入到外存<br>try {<br>    ExifInterface exifInterface = new ExifInterface(url);<br>} catch (Exception e) {<br>    e.printStackTrace();<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">额，等等。上面说了，`ExifInterface` 可以拿到图片的宽高等参数，那我是不是可以直接通过判断图片宽高是否为 0 来判断用户是否拍照呢？如果 `width` 和 `height` 为 0，说明用户取消了拍照，不显示。否则显示图片，心动不如行动，直接上代码。</div></pre></td></tr></table></figure></p>
+<p>flag = true;<br>Log.e(TAG, “onActivityResult: uri:” + imageGridAdapter.uri);<br>if (null != imageGridAdapter.uri) {<br>    final String url = PhotoUtil.getImageUrlFromActivityResult(this,<br>            imageGridAdapter.uri);<br>    Log.e(TAG, “onActivityResult: url:” + url);<br>    boolean flag = true;<br>    // 小米4 LTE MIUI 7.0 版本下，file的size始终为0；通过提前获取ExifInterface信息，保证文件确实写入到外存<br>    try {<br>        ExifInterface exifInterface = new ExifInterface(url);<br>        int height = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的高度<br>        int width = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的宽度<br>        Log.e(TAG, “onActivityResult: height:” + height);<br>        Log.e(TAG, “onActivityResult: width:” + width);<br>        if (height == 0 &amp;&amp; width == 0) {<br>            flag = false;<br>        }<br>    } catch (Exception e) {<br>        e.printStackTrace();<br>    }<br>    if (!TextUtils.isEmpty(url)) {<br>        file = new File(url);<br>        size = file.length();<br>        Log.e(TAG, “onActivityResult: size:” + size);<br>        /**</p>
+<pre><code>     * MIUI8.0上面方案无法解决，经测试发现在一定时间后能保证size不为0
+     * 奇怪的发现当size为0的时候依然可以拿到图片，多款手机测试通过
+     */
+    if (flag) {
+        ImageItem imageItem = new ImageItem();
+        imageItem.ImageId = ImageItem.NEW_ID;
+        imageItem.PhotoPath = url;
+        imageGridAdapter.getmDataList().add(imageItem);
+        imageGridAdapter.notifyDataSetChanged();
+        imageGridAdapter.uri = null;
+    }
+
+}
+</code></pre><p>}<br>```</p>
+<p> OK，终于解决了。希望能帮到大家！</p>
+<p>欢迎关注我的技术公众号（公众号搜索nanchen），每天一篇 Android 资源分享。</p>
+<p><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/0?wx_fmt=jpeg" alt="img"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/相机适配/" rel="tag"># 相机适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/21/如果优雅地退出应用和处理崩溃异常并重启/" rel="next" title="如果优雅地退出应用和处理崩溃异常并重启">
+                <i class="fa fa-chevron-left"></i> 如果优雅地退出应用和处理崩溃异常并重启
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" rel="prev" title="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+                Android 7.0 调用系统相机崩溃解决 android.os.FileUriException <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拍照功能实现"><span class="nav-number">2.</span> <span class="nav-text">拍照功能实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有没有相机可用？"><span class="nav-number">3.</span> <span class="nav-text">有没有相机可用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拍出来的照片“歪了”！！！"><span class="nav-number">4.</span> <span class="nav-text">拍出来的照片“歪了”！！！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拍完照怎么闪退了？"><span class="nav-number">5.</span> <span class="nav-text">拍完照怎么闪退了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片无法显示"><span class="nav-number">6.</span> <span class="nav-text">图片无法显示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/';
+          this.page.identifier = '2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/';
+          this.page.title = 'MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
