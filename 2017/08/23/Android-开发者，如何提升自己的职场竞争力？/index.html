@@ -1,0 +1,1047 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="感悟," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言该文章是笔者参加 Android 巴士线下交流会成都站 的手写讲稿虚拟场景，所以大家将就看一下。 开始大家好，我是刘世麟，首先感谢安卓巴士为我们创造了这次奇妙的相遇。现场的氛围也让我十分激动。  职场竞争力，从来都是我们关注的话题，所以我今天给大家分享一下:《Android 初学者，如何快速提升职场竞争力》。 在今年 4 月，全球互联网引来了一个历史性的转折点：随着流量分析工具 StatCou">
+<meta name="keywords" content="感悟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 开发者，如何提升自己的职场竞争力？">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="前言该文章是笔者参加 Android 巴士线下交流会成都站 的手写讲稿虚拟场景，所以大家将就看一下。 开始大家好，我是刘世麟，首先感谢安卓巴士为我们创造了这次奇妙的相遇。现场的氛围也让我十分激动。  职场竞争力，从来都是我们关注的话题，所以我今天给大家分享一下:《Android 初学者，如何快速提升职场竞争力》。 在今年 4 月，全球互联网引来了一个历史性的转折点：随着流量分析工具 StatCou">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-830f6c84e2f4abfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-ed42ec08e4dcfe12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-202fcfa501105c65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-23T08:13:26.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 开发者，如何提升自己的职场竞争力？">
+<meta name="twitter:description" content="前言该文章是笔者参加 Android 巴士线下交流会成都站 的手写讲稿虚拟场景，所以大家将就看一下。 开始大家好，我是刘世麟，首先感谢安卓巴士为我们创造了这次奇妙的相遇。现场的氛围也让我十分激动。  职场竞争力，从来都是我们关注的话题，所以我今天给大家分享一下:《Android 初学者，如何快速提升职场竞争力》。 在今年 4 月，全球互联网引来了一个历史性的转折点：随着流量分析工具 StatCou">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3994917-830f6c84e2f4abfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/"/>
+
+
+
+
+
+  <title>Android 开发者，如何提升自己的职场竞争力？ | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 开发者，如何提升自己的职场竞争力？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T16:12:33+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/感悟/" itemprop="url" rel="index">
+                    <span itemprop="name">感悟</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/23/Android-开发者，如何提升自己的职场竞争力？/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/" class="leancloud_visitors" data-flag-title="Android 开发者，如何提升自己的职场竞争力？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>该文章是笔者参加 <a href="http://www.huodongxing.com/event/4399830779400" target="_blank" rel="external">Android 巴士线下交流会成都站</a> 的手写讲稿虚拟场景，所以大家将就看一下。</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>大家好，我是刘世麟，首先感谢安卓巴士为我们创造了这次奇妙的相遇。现场的氛围也让我十分激动。</p>
+<p> 职场竞争力，从来都是我们关注的话题，所以我今天给大家分享一下:《Android 初学者，如何快速提升职场竞争力》。</p>
+<p>在今年 4 月，全球互联网引来了一个历史性的转折点：随着流量分析工具 StatCounter 的报告，Android 首次超越 Windows，成为用户访问互联网最常用的操作系统！Android 不仅在移动领域，在全操作系统内，都成为了当之无愧的霸主！无论你有志于成为领先企业的 Android 工程师，还是想成为改变世界的独立开发者，我希望你们为此而骄傲！！！</p>
+<p>即便如此，大家觉得 Android 开发就业形势可观吗？</p>
+<p>答案是不可观。我这绝对不是危言耸听，随着近年来 O2O 公司的大幅度倒闭，互联网公司烧钱严重，很多公司根本烧不起，所以很多开发者随着企业的倒闭再次卷入了求职的浪潮之中。</p>
+<p>我想请问一下，在场的各位，现在用的共享单车都用的是哪家的？</p>
+<p>想必基本都是小黄车和小橙车。现在 ofo 和膜拜两家独大，前段时间还能看到的悟空单车现在已经销声匿迹，因为它烧不起钱，ofo 和膜拜一个月免费骑行足以让它直接倒下，而就职于悟空单车的 Android 程序员可能因此被辞职。</p>
+<p>Android 行业发展年限并不久，所以最开始接触 Android 的那一批人，现在极有可能还在 Android 领域，再加上近年来各大培训机构和高校向社会中注入了很大一部分的 Android 开发人才，所以造成了现在供大于求的窘境。可能有人经历或者听说过 14 年 Android 会写一个 ListView 的适配器就能找到不错的工作吧，你现在会用这些能找到工作吗？</p>
+<p>所以这个时候，出色的开发能力能让你的开发职业生涯更加顺风顺水。</p>
+<p>下面我想结合我的经历给大家讲一下几点：</p>
+<ul>
+<li>如何系统化学习 Android 技术？（Android 知识体系）           </li>
+<li>企业到底需要什么样的 Android 开发人才？（Android 市场行情）</li>
+<li>Android 学习的方式都有哪些？（Android 学习方式）</li>
+<li>对 Android 学习和提升的一些建议。（Android 提升建议）</li>
+</ul>
+<h2 id="Android-知识体系"><a href="#Android-知识体系" class="headerlink" title="Android 知识体系"></a>Android 知识体系</h2><p><img src="http://upload-images.jianshu.io/upload_images/3994917-830f6c84e2f4abfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android 知识体系.png"></p>
+<p>重点看我们 PPT 中的图。在 Android 开发的过程中，需要很多很多的知识，而有些知识也很难为其分类，在这里，我把它们分为上述五个部分：UI、架构、性能、NDK、其他，其他则可以细化为代码风格，学习能力，第三方库等。</p>
+<ul>
+<li><p>UI方面<br>首先是 UI 方面，我相信大多数人都是开发 Android 应用的，所以 UI 的知识，必不可少。UI 一共分为三部分：绘制、布局和触摸反馈。要想写出漂亮的 UI 搭配动画，这需要花费巨量的时间，可能已经有特别多的朋友和我一样，在一直跟进扔物线（朱凯）的 <a href="http://hencoder.com/" target="_blank" rel="external">HenCoder</a> 系列了。如果你可以写出非常漂亮的控件或者动画框架并开源出来，我相信，你找份好工作已经没有问题了。</p>
+</li>
+<li><p>架构方面<br>这个方面是卡年限的一个东西。随着工作的需要以及阅历（看代码）的增长，我们总是会越来越不满意自己写的代码模块，比如我，就深受这个的苦恼，我经常会出现三个月前写的代码，自己都看不下去，强迫症的我，一定会把它翻写的。但如果项目周期短的你，千万不要像我一样做。<br>当你不断改写封装自己的代码的时候，你可能就已经涉及到了架构方面的知识啦。架构方面的知识主要包括设计思想，及其选择合适架构的能力，这两者通常来讲是相辅相成的。每一种新的架构或设计思想问世往往是用来解决实际问题的，他们解决问题的侧重点各不相同，因此在什么时候采用什么架构或设计就非常考验程序员的阅历了。通常这部分的知识学起来最为困难，因为他不仅仅是一种思想，如果你的代码量不多，或者接触的项目比较小的话，你往往会很少触及到这部分的知识，最后自然而言又忘了。<br>所以在这方面我建议大家在工作之余，多参考 GitHub 上开源的完整项目，也要多写点自己的项目，提升自己的代码量和架构能力。</p>
+</li>
+<li><p>性能方面<br>性能方面相信开发稍大型 APP 的工程师体会尤其深刻了。随着 APP 工程的体量越来越大，开发功能越来越多，你会发现原来非常流畅的 APP 可能会出现卡顿、OOM、ANR 等现象，除了前面韩神所提到的内存泄漏，可能你还会因为其他问题导致性能表现不够优秀。而这部分的只是相对比较零散，也很难总结，更多的就是你的经验积累，所以多年经验的程序猿更受企业的青睐。</p>
+</li>
+<li><p>NDK方面<br>这一方面的知识比较特殊，很多 Android 开发工程师在初中级阶段可能都不会涉及到。在开发中我们可能只会在特定的领域才会用到 NDK 进行开发，由于我也没遇到过，所以暂不多讲。</p>
+</li>
+</ul>
+<h2 id="Android-市场分析"><a href="#Android-市场分析" class="headerlink" title="Android 市场分析"></a>Android 市场分析</h2><p>总体上，目前市面上可以将互联网公司分为两类：</p>
+<ul>
+<li><p>没有实体产品的，以软件产品为主的互联网公司（其中相当一部分为外包）；</p>
+</li>
+<li><p>有实体产品的，将硬件和软件结合起来的互联网公司。</p>
+</li>
+</ul>
+<p>我们暂且把它们称呼为 A 类和 B 类。</p>
+<p>A 类公司往往偏向于 UI 及其架构，性能稍次，并且大多数中小型企业会要求应聘者能熟练掌握市场上流行的开源库以节约开发成本。这类公司开发的 APP 往往是纯虚拟的产品 —— 社交通讯、各类工具、资源聚合等。这些产品因为竞争激烈，功能需求变化也快，所以版本迭代的速度会非常快。这个时候，一个好的架构就可以节省许多时间，它能快速的响应需求，并迅速添加新的功能模块。UI 也是重点，在两个 APP 功能差不多的情况下，拼的就是用户体验了，其中用户最能感受到的就是两点，首先是界面是否美观，动画是否自然；其次才是 APP 是否流畅。</p>
+<p>A 类公司对人才的需求大概是这样。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3994917-ed42ec08e4dcfe12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="A 类公司.png"></p>
+<p>而对于 B 类公司，他们因为有实体产品，因此往往会要求应聘者具有某种特殊的技能，例如蓝牙，WIFI等。</p>
+<p>这类公司往往偏向于性能及 NDK，UI 稍次。在目前的大环境下，这类公司多数都在物联网产业链上，以智能硬件、智能家居、机器人居多，而这类公司的话，大部分其实都是传统企业转型而来，因此其开发的产品比较注重功能的完善及响应速度，UI 的话反而会稍微丑陋一些。毕竟消费者买的是实体产品，配套的 APP 就算再丑也得用不是么。</p>
+<p>他们对人才的需求往往是这样的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3994917-202fcfa501105c65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="B 类公司.png"><br>明确自己想去什么样的公司，或者对哪一类的业务更感兴趣，会有助于你更有的放矢地学习技能。</p>
+<h2 id="Android-学习方式？"><a href="#Android-学习方式？" class="headerlink" title="Android 学习方式？"></a>Android 学习方式？</h2><p>我认为最主要的一点就是主观能动性，或者说兴趣，如果你对 Android 开发没有太大的兴趣，那么还是尽早换方向吧。有了兴趣，自然是确立一个比较正确的学习路线。据说我们参会的还有一些应届毕业生或者还没开始工作的朋友。可能还在学习中很迷茫，我这里先给大家说一下我的学习经历。</p>
+<p>学习 Android 无非几种方式：</p>
+<ul>
+<li><p>看书类<br>此类可能比较全面，但也意味着过时的问题，我不是非常提倡，但书籍是人类进步的阶梯，你们可以考虑。其实我也买了挺多相关书籍，但自从习惯在网络上学习后就不看了。</p>
+</li>
+<li><p>线上课程直播或者录播<br>这个可能是初学者当下比较受欢迎的学习方式了，但所讲知识通常比较基础，而且学习速度慢，但效率确实挺高的。这也是我在入门 Android 的时候用的最多的方式。采用这种方式学习的时候通常会有一个毛病，就是喜欢边看边写，这是我不提倡的，我提倡看一段写一段。在前期你可以不用一整段都看完，以小节的方式学习后再写代码。前期可能你会觉得自己像在背代码一样，但我不可否认，这确实是效率挺高的方法。但真的太费时了，至少我在工作后没用过这种方案。</p>
+</li>
+<li><p>看博文、看别人的开源项目、看官方文档、官方例子代码<br>这是我现在用的最多的一种学习提升方式。一般可以通过上面的看书或者看录播的方式学习到完整的基础组件和代码编写，但这时候你用基础的组件实现出来的东西美观度通常比较局限。但当你加入公司后，产品会设计出各种新颖的效果，而这些效果并不能通过原生控件实现，这时候，网上超大量的资源就涌现出来了。掌握 GitHub 正确的搜索姿势，通常能让你事半功倍。而这个时候，一个熟悉的英文阅读能力和理解能力将展现的淋漓尽致。随着开发经验的积累，你会发现你的开发速度直线飙升。</p>
+</li>
+</ul>
+<h2 id="Android-提升建议"><a href="#Android-提升建议" class="headerlink" title="Android 提升建议"></a>Android 提升建议</h2><p>成为一名Android开发者很容易，但是要成为一名成功的、突出的Android开发者却不那么容易。这需要付出很多的努力，耐心，奉献和毅力才能做到。</p>
+<p>我并没有什么捷径或者简单的方法来告诉你让你成为一名成功的开发者。但如果你愿意全身心投入并付出努力的话，你肯定会得到你应得的成功的。</p>
+<p>应大家的请求，我这里给大家提供一些提升建议，仅供参考。</p>
+<ul>
+<li><p>开始阅读更多的代码<br>大部分的开发者都不会抽时间去阅读其他开发者所写的代码，他们大多数时间只是花在写他们已经知道的事情上。但那并不利于你成长为一名优秀的开发者，也不会增长你的见识。我建议大家阅读同事的代码，让你对你们的项目更加了解，当你对公司的产品代码足够了解后，你给老板提加薪的时候才更有底气。<br>有的人会说，咱们公司就我一个 Android 开发者，我看谁的代码呢？GitHub 上那么多优秀的开源应用和类库，我建议你们去阅读并开始学习它们，每天 30 分钟的代码阅读量是个非常好的开始。你将会惊讶的发现，还有如此多美妙的东西是你没见过的。</p>
+</li>
+<li><p>克服对未知的害怕<br>Android 系统很大，非常大。你不可能在一两个月内完全掌握它。随着学习越深入，你会发现越多的内容需要学习。作为一名初学者，很容易也很正常地出现这种对未知恐惧的害怕。我也不例外，曾经我学习 RxJava 的时候，我看了很多很多的博文，包括扔物线朱凯的那篇出名的<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_2" target="_blank" rel="external">《给Android开发者的RxJava详解》</a>，但持续了整整一个周，依然不懂，这时候觉得 RxJava 真是太难了。在这种时候，不妨先放下它一段时间，过些日子再去学习你会觉得如鱼得水的。比如我，前面就在GitHub 上开源了 <a href="https://github.com/nanchen2251/RxJava2Examples" target="_blank" rel="external">RxJava2Examples</a>（附带整个系列 RxJava 2 文章） 尝试去克服对未知的恐惧吧，学习那些你确实需要用到的东西，能够让你开始手头正在构建的应用，然后慢慢地开拓你的视野。</p>
+</li>
+<li><p>尝试开始写博客<br>写博客或许是一件相当费时的事，或许你写的博客只是阅览了多篇文章后的总结而以，或许你写的博客一点都不深入，但但是！！！别人的永远是别人的，作为一个已经写了很多博文的我来说，我所收获到的东西，不是这点时间能比拟的。因为只有你足够懂了，你才能讲给别人听。</p>
+</li>
+<li><p>开始贡献开源库<br><a href="https://github.com/nanchen2251" target="_blank" rel="external">GitHub</a> 上有很多很棒的开源库，但由于一些特殊的原因可能作者并没有时间维护它。尝试去为开源库贡献你的源码，你会得到非常非常非常大的反馈的。可能这里有的人也知道，我在去年有维护 <a href="https://github.com/jeasonlzy/ImagePicker" target="_blank" rel="external">ImagePicker</a> 图片选择库，我在里面贡献了不少代码，虽然后面由于一些时间原因停止维护了，但我收获非常大。具体收获，这个只能意会。</p>
+</li>
+</ul>
+<p>除了为别人开源库贡献，你也可以开源自己的代码。图片压缩在项目中挺常用的，在编写我们公司的项目的时候，我自己写了图片压缩，后面觉得挺好用的，所以直接把它开源到了 <a href="https://github.com/nanchen2251/CompressHelper" target="_blank" rel="external">GitHub</a> 上。这个过程非常的 nice，不仅学习到了特别多的知识，而且通过大家的测试，我的开源库的伸展性更佳。开源的过程有很多的东西是需要你学习的，而且这有助于你成为一名优秀的开发者。</p>
+<ul>
+<li>花一些时间来学习Android最佳实践</li>
+</ul>
+<p>要使自己比其他开发者更加出众，并能构建出整洁美观而又功能完善的应用，你需要开始学习一些Android开发最佳实践。除此之外，你还应该多去关注市场发展，看看最近流行的库都是怎么用，并尝试阅读它们。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>本次我的分享也接近尾声了，感谢你们在百忙中花上一下午来这里聆听我们的宣讲，希望在接下来的日子，我们共同成长，一起进步！！！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/感悟/" rel="tag"># 感悟</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" rel="next" title="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+                <i class="fa fa-chevron-left"></i> Android 7.0 调用系统相机崩溃解决 android.os.FileUriException
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-知识体系"><span class="nav-number">3.</span> <span class="nav-text">Android 知识体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-市场分析"><span class="nav-number">4.</span> <span class="nav-text">Android 市场分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-学习方式？"><span class="nav-number">5.</span> <span class="nav-text">Android 学习方式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-提升建议"><span class="nav-number">6.</span> <span class="nav-text">Android 提升建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">7.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/';
+          this.page.identifier = '2017/08/23/Android-开发者，如何提升自己的职场竞争力？/';
+          this.page.title = 'Android 开发者，如何提升自己的职场竞争力？';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
