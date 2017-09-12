@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="7.0适配," />
+  <meta name="keywords" content="性能优化," />
 
 
 
@@ -93,23 +93,24 @@
 
 
 
-<meta name="description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
-<meta name="keywords" content="7.0适配">
+<meta name="description" content="前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJava 2.0 系列 收到较好的反馈，诱导我想出这么一个性能优化系列。 一些你可能需要知道的了解我的知道，我出的系列基本都是比较基础，而">
+<meta name="keywords" content="性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
-<meta property="og:url" content="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/index.html">
+<meta property="og:title" content="这可能是最好的性能优化教程（一）">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/index.html">
 <meta property="og:site_name" content="nanchen">
-<meta property="og:description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-c3a54860b9adbf0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-e3e9452a7820c9b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3994917-4cc20dc7a8ab00ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:updated_time" content="2017-07-25T06:34:29.324Z">
+<meta property="og:description" content="前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJava 2.0 系列 收到较好的反馈，诱导我想出这么一个性能优化系列。 一些你可能需要知道的了解我的知道，我出的系列基本都是比较基础，而">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4e2f62f9c91f01e2a93fa4fcc9cbb541">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/67ee1a2c475df0f086b34767363a5742">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/0bb3f217e0a278bffc2d188f1472638a">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/17c617752cef86e8077b22bf2eb1686d">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e">
+<meta property="og:updated_time" content="2017-09-12T09:25:35.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
-<meta name="twitter:description" content="写在前面最近由于廖子尧忙于自己公司的事情和 OkGo (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 ImagePicker（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。 　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="这可能是最好的性能优化教程（一）">
+<meta name="twitter:description" content="前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJava 2.0 系列 收到较好的反馈，诱导我想出这么一个性能优化系列。 一些你可能需要知道的了解我的知道，我出的系列基本都是比较基础，而">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a">
 
 
 
@@ -137,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/"/>
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/"/>
 
 
 
 
 
-  <title>Android 7.0 调用系统相机崩溃解决 android.os.FileUriException | nanchen</title>
+  <title>这可能是最好的性能优化教程（一） | nanchen</title>
   
 
 
@@ -285,7 +286,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="南尘">
@@ -302,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android 7.0 调用系统相机崩溃解决 android.os.FileUriException</h1>
+          <h1 class="post-title" itemprop="name headline">这可能是最好的性能优化教程（一）</h1>
         
 
         <div class="post-meta">
@@ -314,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T14:32:02+08:00">
-                2017-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T17:24:41+08:00">
+                2017-09-12
               </time>
             
 
@@ -337,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/相机适配/" itemprop="url" rel="index">
-                    <span itemprop="name">相机适配</span>
+                  <a href="/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
                   </a>
                 </span>
 
@@ -355,9 +356,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/12/这可能是最好的性能优化教程（一）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/12/这可能是最好的性能优化教程（一）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,7 +366,7 @@
 
           
           
-             <span id="/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/" class="leancloud_visitors" data-flag-title="Android 7.0 调用系统相机崩溃解决 android.os.FileUriException">
+             <span id="/2017/09/12/这可能是最好的性能优化教程（一）/" class="leancloud_visitors" data-flag-title="这可能是最好的性能优化教程（一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -393,21 +394,50 @@
       
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近由于廖子尧忙于自己公司的事情和 <a href="https://github.com/jeasonlzy/okhttp-OkGo" target="_blank" rel="external">OkGo</a> (一款专注于让网络请求更简单的网络框架) ，故让LZ 接替维护 <a href="https://github.com/jeasonlzy/ImagePicker" target="_blank" rel="external">ImagePicker</a>（一款支持单、多选、旋转和裁剪的图片选择器），也是处理了诸多bug，最近总算趋于稳定了，这里就把 Android N (API 24) 以上的相机适配方案分享给大家。</p>
-<p>　 Android Nougat 也是被更新很久了，作为一名 Andorid 开发者，我们有义务时刻准备自己调整 TargetSdkVersion 为最近的一个，于是从之前的 23 直接提高到了 25 。</p>
-<p>　 和往常一样，每当我们调整 TargetSdkVersion，我们需要检查我们的代码的每一部分工作的非常好。如果你只是简单地更改代码，我可以说，你的应用程序正在崩溃或故障的高风险。在这种情况下，当你改变你的应用程序的 TargetSdkVersion 24，我们需要检查每一个功能完美的作品在 Android 的牛轧糖（24）以上。<br>    拿到 7.0 的小米 5 测试机后，迫不及待对自己维护的 <a href="https://github.com/jeasonlzy/ImagePicker" target="_blank" rel="external">ImagePicker</a> 测试了一个遍，然而的确和大家所提的 issuse 一样，在调用系统相机的时候直接崩溃了。</p>
-<h2 id="到底是什么引发了-7-0-相机崩溃"><a href="#到底是什么引发了-7-0-相机崩溃" class="headerlink" title="到底是什么引发了 7.0 相机崩溃"></a>到底是什么引发了 7.0 相机崩溃</h2><p>跟进错误日志到源码发现，在我们调用相机获取 Uri 的时候发生了崩溃。<br>　　<img src="http://upload-images.jianshu.io/upload_images/3994917-f5b5e6ee886d0fe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>　　原因很明显，file:// 不被允许作为一个附加的 Uri 的意图，否则会抛出 FileUriExposedException 。</p>
-<h2 id="为什么在-Android-Nougat-下-file-不被允许？"><a href="#为什么在-Android-Nougat-下-file-不被允许？" class="headerlink" title="为什么在 Android Nougat 下 file:// 不被允许？"></a>为什么在 Android Nougat 下 file:// 不被允许？</h2><p> 你可能会很好奇为什么 Android 团队决定改变这种行为。<br>     其实背后有一个很好的理由，如果文件路径被发送到目标应用程序（相机应用程序在这种情况下），文件将完全访问通过相机应用程序的过程，而不仅仅只有发起者能收到。<br>     <img src="http://upload-images.jianshu.io/upload_images/3994917-c3a54860b9adbf0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>    但让我们考虑一下，实际上是由我们的应用程序去启动摄像头拍照，并保存作为我们的应用程序的代表文件。因此，该文件的访问权限应该是我们的应用程序而不是摄像头应用程序本身。这就是为什么现在 file:// 在 TargetSdkVersion 24 中要求每一位开发者都去完成这个任务。</p>
-<h2 id="那到底怎么解决？"><a href="#那到底怎么解决？" class="headerlink" title="那到底怎么解决？"></a>那到底怎么解决？</h2><p>既然 file:// 不再被允许，那我们应该怎么处理呢？答案是通过 FileProvider 去解决它。<br>     <img src="http://upload-images.jianshu.io/upload_images/3994917-e3e9452a7820c9b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h3 id="我们应该怎么让-FileProvider-解决好它。"><a href="#我们应该怎么让-FileProvider-解决好它。" class="headerlink" title="我们应该怎么让 FileProvider 解决好它。"></a>我们应该怎么让 FileProvider 解决好它。</h3><h5 id="1、首先是在-AndroidManifest-xml-中申明"><a href="#1、首先是在-AndroidManifest-xml-中申明" class="headerlink" title="1、首先是在 AndroidManifest.xml 中申明"></a>1、首先是在 AndroidManifest.xml 中申明</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;provider</div><div class="line">            android:authorities="$&#123;applicationId&#125;.provider"</div><div class="line">            android:name=".ImagePickerProvider"</div><div class="line">            android:exported="false"</div><div class="line">            android:grantUriPermissions="true"&gt;</div><div class="line">            &lt;meta-data</div><div class="line">                android:name="android.support.FILE_PROVIDER_PATHS"</div><div class="line">                android:resource="@xml/provider_paths"/&gt;</div><div class="line">        &lt;/provider&gt;</div></pre></td></tr></table></figure>
-<h5 id="2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。"><a href="#2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。" class="headerlink" title="2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。"></a>2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;paths xmlns:android="http://schemas.android.com/apk/res/android"&gt;</div><div class="line">    &lt;external-path name="external_files" path="."/&gt;</div><div class="line">&lt;/paths&gt;</div></pre></td></tr></table></figure>
-<h5 id="3、在适当的地方去替换它"><a href="#3、在适当的地方去替换它" class="headerlink" title="3、在适当的地方去替换它"></a>3、在适当的地方去替换它</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Uri uri;</div><div class="line"><span class="keyword">if</span> (VERSION.SDK_INT &lt;= VERSION_CODES.M)&#123;</div><div class="line">    uri = Uri.fromFile(takeImageFile);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider</div><div class="line">     * 并且这样可以解决MIUI系统上拍照返回size为0的情况</div><div class="line">     */</div><div class="line">    uri = FileProvider.getUriForFile(activity, ProviderUtil.getFileProviderName(activity), takeImageFile);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Log.e(<span class="string">"nanchen"</span>,ProviderUtil.getFileProviderName(activity));</div><div class="line">takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);</div></pre></td></tr></table></figure>
-<h2 id="几点说明"><a href="#几点说明" class="headerlink" title="几点说明"></a>几点说明</h2><p>对于上面的三步操作，做几点说明：<br>      1、在 AndroidManifest.xml 文件中对 Provider 的 name 属性申明为什么是 .ImagePickerProvider (实际上这是一个继承自 FileProvider 但什么也没实现的类) 而不直接把 name 赋为 android.support.v4.content.FileProvider ？<br>       这是因为 ImagePicker 作为一个图片选择框架，而你的 App 中同样可能会有申明，为了避免 Android Studio 在编译的时候 merge 各个 Module 导致冲突，这里保险起见的申明了一个不一样的名字。</p>
-<p>2、为什么在 AndroidManifest.xml 文件中申明的 authority 属性为 ${applicationId}.provider ， 而不是固定的名字。</p>
-<p>这是因为在 Android 中，要求 authority 必须是唯一的，如果你在定义一个 provider 的时候为它指定一个唯一的 authority，这里且拿 ImagePicker 做比方，假如你在一个 App 上使用了 ImagePicker 作为图片选择框架，而你在另外一个应用中再次使用 ImagePicker 的时候，系统会检查当然已安装应用的 authority 是否和你要安装应用的 authority 相同，如果相同则会弹出下面的警告，并安装失败。<br><img src="http://upload-images.jianshu.io/upload_images/3994917-4cc20dc7a8ab00ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>所以我们在定义 authorities 的时候采用 ApplicationId + Provider 的形式，在获取 authorities 的时候，我们可以通过包名 + Provider 的方式获取。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.lzy.imagepicker.util;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.content.Context;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用于解决 Provider 冲突的 util</div><div class="line"> *</div><div class="line"> * Author: nanchen</div><div class="line"> * Email: liushilin520@foxmail.com</div><div class="line"> * Date: 2017-03-22  18:55</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderUtil</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getFileProviderName</span><span class="params">(Context context)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> context.getPackageName()+<span class="string">".provider"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>以上便解决了 Android N 的相机崩溃问题，如有写的不对的地方，欢迎大家在评论区留言。<br>欢迎关注我的技术公众号（公众号搜索nanchen），每天一篇 Android 资源分享。</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz_jpg/Sib26KFUYxcSrG9QHrJZ2oAY6hIq6YXwCal8RibbRlEwvAymL8C7H7LBqo1TREbOkicwCntj2ibVF1ZibrfevncTdWA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt=""></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。</p>
+<p>在这样的大背景下，加之我之前写的 <a href="https://github.com/nanchen2251/RxJava2Examples" target="_blank" rel="external">RxJava 2.0 系列</a> 收到较好的反馈，诱导我想出这么一个性能优化系列。</p>
+<h2 id="一些你可能需要知道的"><a href="#一些你可能需要知道的" class="headerlink" title="一些你可能需要知道的"></a>一些你可能需要知道的</h2><p>了解我的知道，我出的系列基本都是比较基础，而且侧重于常见必备。所以不一定全面，也不一定深入，所以希望理解。</p>
+<p>性能优化大概可以概括为：</p>
+<ul>
+<li>性能优化说起来很简单，但做起来难。</li>
+<li>性能优化点多并且繁杂，需要耐心和经验。也许每个优化点很小，但积累起来会从量变变成质的飞跃。</li>
+<li>性能优化必须建立在产品设计之上，不能为了追求性能而忽略了产品设计。</li>
+</ul>
+<h2 id="提供一些资源-你可能需要梯子"><a href="#提供一些资源-你可能需要梯子" class="headerlink" title="提供一些资源 ( 你可能需要梯子 )"></a>提供一些资源 ( 你可能需要梯子 )</h2><ul>
+<li><a href="http://developer.android.com/intl/zh-cn/training/best-performance.html" target="_blank" rel="external">性能优化最佳实践</a></li>
+<li><a href="http://developer.android.com/intl.zh-cn/tools/performance/index.html" target="_blank" rel="external">性能优化工具</a></li>
+</ul>
+<h2 id="善用-ArrayMap"><a href="#善用-ArrayMap" class="headerlink" title="善用 ArrayMap"></a>善用 ArrayMap</h2><p>程序内存的管理是否合理高效对应用的性能有着很大的影响，有时候对容器的使用不当也会导致内存管理效率低下。想必已经有很多童鞋知道了 <code>SparseArray</code>，但它只是用于替代 List。</p>
+<p>我们经常会在程序中用到 <code>HashMap</code>，它非常好用，这毋庸置疑。但它却非常耗内存。<code>HashMap</code> 的工作原理这里我们就不讲了，有兴趣的自行科普。</p>
+<h4 id="更高效的-ArrayMap-容器"><a href="#更高效的-ArrayMap-容器" class="headerlink" title="更高效的 ArrayMap 容器"></a>更高效的 ArrayMap 容器</h4><p>为了解决 <code>HashMap</code> 更占内存的弊端，Android 提供了内存效率更高的 <code>ArrayMap</code>。它内部使用两个数组进行工作，其中一个数组记录 key hash 过后的顺序列表，另外一个数组按 key 的顺序记录 Key - Value 的值。如下图所示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a" alt=""></p>
+<p>当你想获取某个 Value 的时候，<code>ArrayMap</code> 会计算输入 key 转换过后的 hash 值，然后对 hash 数组使用二分查找法寻找到对应的 index，然后我们可以通过这个 index 在另外一个数组中直接访问到需要的键值对。如果在第二个数组键值对中的 key 和前面输入的查询 key 不一致，那么就认为是发生了碰撞冲突。为了解决这个问题，我们会以该 key 为中心点，分别上下展开，逐个去对比查找，直到找到匹配的值。如下图所示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/4e2f62f9c91f01e2a93fa4fcc9cbb541" alt=""></p>
+<p>随着数组中的对象越来越多，查找访问单个对象的花费也会跟着增长，这是在内存占用与访问时间之间做权衡交换。</p>
+<p>既然ArrayMap中的内存占用是连续不间断的，那么它是如何处理插入与删除操作的呢？请看下图所示，演示了Array的特性：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/67ee1a2c475df0f086b34767363a5742" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/0bb3f217e0a278bffc2d188f1472638a" alt=""><br>很明显，<code>ArrayMap</code> 的插入与删除的效率是不够高的，但是如果数组的列表只是在一百这个数量级上，则完全不用担心这些插入与删除的效率问题。<code>HashMap</code> 与 <code>ArrayMap</code> 之间的内存占用效率对比图如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/17c617752cef86e8077b22bf2eb1686d" alt=""></p>
+<p>与 <code>HashMap</code> 想必，<code>ArrayMap</code> 在循环遍历的时候也更加简单高效，因为其采用的是 fori 循环，而 <code>HashMap</code> 却使用的是糟糕的 <code>Iterator</code>。</p>
+<h4 id="并不是所有情况下都用-ArrayMap"><a href="#并不是所有情况下都用-ArrayMap" class="headerlink" title="并不是所有情况下都用 ArrayMap"></a>并不是所有情况下都用 ArrayMap</h4><p><code>ArrayMap</code> 这么优秀，但并不是所有情况下都适合使用 <code>ArrayMap</code>，我们应该在满足下面两个条件的时候才考虑使用 <code>ArrayMap</code>：</p>
+<ul>
+<li>对象个数的数量级最好在 1000 以内。</li>
+<li>数据组织形式包含 Map 结构。</li>
+</ul>
+<p>所以我们需要学会在特定清醒下选择相对更加高效的实现方式。</p>
+<h2 id="UI-性能确实很重要"><a href="#UI-性能确实很重要" class="headerlink" title="UI 性能确实很重要"></a>UI 性能确实很重要</h2><p>UI 界面是整个 APP 性能的最前端展示，也是最容易看出性能问题的地方。可以毫不夸张地说，UI 性能的好坏直接影响这用户的体验和留存。UI 性能的目标是：</p>
+<ul>
+<li>减少绘图的等待时间。</li>
+<li>使帧率更加平稳、连贯。</li>
+</ul>
+<h4 id="UI-布局的核心原则"><a href="#UI-布局的核心原则" class="headerlink" title="UI 布局的核心原则"></a>UI 布局的核心原则</h4><p>核心原则一句话，尽可能地减少 View 的数量！</p>
+<p>我们可以通过 <code>include</code>、<code>merge</code>、<code>viewstub</code> 进行布局复用，通过控件属性 DrawableLeft、DrawableRight 等方式进行控件整合。</p>
+<h4 id="听说我们要尽可能地用-RelativeLayout"><a href="#听说我们要尽可能地用-RelativeLayout" class="headerlink" title="听说我们要尽可能地用 RelativeLayout ?"></a>听说我们要尽可能地用 RelativeLayout ?</h4><p>想必一些资历较老的 Android 开发者都知道，一开始系统默认创建的布局是 LinearLayout，后面替换成了 RelativeLayout，现在又变成了 ConstraintLayout 。由于我对 ConstraintLayout 不是特别了解，所以这里我着重说说 RelativeLayout 和 LinearLayout 。</p>
+<p>我不知道在什么时候听说过，<strong>如果我们能用 RelativeLayout 的地方，尽量不要用 LinearLayout</strong> 。</p>
+<p>这种说法是不对的，实际开发中，决不能简单地说 RelativeLayout 和 LinearLayout 谁的性能更好，必须结合实际使用来进行分析。</p>
+<p>基本可以总结为：一般情况下，如果使用 LinearLayout，则一定要保证层级不能太深；如果使用 RelativeLayout，则需要尽量避免嵌套。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>以上便是本期内容，由于楼主也是开发任务很多，所以只能在有空的时候更新，如果想第一时间收到更新信息的请关注我的公众号：nanchen</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e" alt=""></p>
 
       
     </div>
@@ -437,7 +467,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/7-0适配/" rel="tag"># 7.0适配</a>
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -450,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/MIUI-系统-BUG，Android-调用相机崩溃？将相机适配进行到底/" rel="next" title="MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底">
-                <i class="fa fa-chevron-left"></i> MIUI 系统 BUG，Android 调用相机崩溃？将相机适配进行到底
+              <a href="/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/" rel="next" title="Android 开发者，如何提升自己的职场竞争力？">
+                <i class="fa fa-chevron-left"></i> Android 开发者，如何提升自己的职场竞争力？
               </a>
             
           </div>
@@ -459,10 +489,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/" rel="prev" title="Android 开发者，如何提升自己的职场竞争力？">
-                Android 开发者，如何提升自己的职场竞争力？ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -659,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#到底是什么引发了-7-0-相机崩溃"><span class="nav-number">2.</span> <span class="nav-text">到底是什么引发了 7.0 相机崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么在-Android-Nougat-下-file-不被允许？"><span class="nav-number">3.</span> <span class="nav-text">为什么在 Android Nougat 下 file:// 不被允许？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那到底怎么解决？"><span class="nav-number">4.</span> <span class="nav-text">那到底怎么解决？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们应该怎么让-FileProvider-解决好它。"><span class="nav-number">4.1.</span> <span class="nav-text">我们应该怎么让 FileProvider 解决好它。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、首先是在-AndroidManifest-xml-中申明"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">1、首先是在 AndroidManifest.xml 中申明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、创建一个-provider-paths-xml-文件在-res-文件夹下的-xml-文件夹下。"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">2、创建一个 provider_paths.xml 文件在 res 文件夹下的 xml 文件夹下。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、在适当的地方去替换它"><span class="nav-number">4.1.0.3.</span> <span class="nav-text">3、在适当的地方去替换它</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几点说明"><span class="nav-number">5.</span> <span class="nav-text">几点说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">6.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些你可能需要知道的"><span class="nav-number">2.</span> <span class="nav-text">一些你可能需要知道的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供一些资源-你可能需要梯子"><span class="nav-number">3.</span> <span class="nav-text">提供一些资源 ( 你可能需要梯子 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善用-ArrayMap"><span class="nav-number">4.</span> <span class="nav-text">善用 ArrayMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更高效的-ArrayMap-容器"><span class="nav-number">4.0.1.</span> <span class="nav-text">更高效的 ArrayMap 容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并不是所有情况下都用-ArrayMap"><span class="nav-number">4.0.2.</span> <span class="nav-text">并不是所有情况下都用 ArrayMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI-性能确实很重要"><span class="nav-number">5.</span> <span class="nav-text">UI 性能确实很重要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-布局的核心原则"><span class="nav-number">5.0.1.</span> <span class="nav-text">UI 布局的核心原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#听说我们要尽可能地用-RelativeLayout"><span class="nav-number">5.0.2.</span> <span class="nav-text">听说我们要尽可能地用 RelativeLayout ?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
 
           </div>
@@ -809,9 +835,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://nanchen2251.github.io/2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/';
-          this.page.identifier = '2017/07/25/Android-7-0-调用系统相机崩溃解决-android-os-FileUriException/';
-          this.page.title = 'Android 7.0 调用系统相机崩溃解决 android.os.FileUriException';
+          this.page.url = 'https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/';
+          this.page.identifier = '2017/09/12/这可能是最好的性能优化教程（一）/';
+          this.page.title = '这可能是最好的性能优化教程（一）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
