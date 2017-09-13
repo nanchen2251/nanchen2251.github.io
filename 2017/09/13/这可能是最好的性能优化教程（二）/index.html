@@ -93,24 +93,29 @@
 
 
 
-<meta name="description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJav">
+<meta name="description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言上篇写了 ArrayMap 和 UI 性能优化，这篇我想和大家聊聊每个人都关心的 APP 启动，参见 Android 性能优化典范。 正文提高 APP 的启动速度对我们意义深远，很显然，APP 的启动时间越短，使用它的用户越有耐心等待打开这个 APP 进行使用。反">
 <meta name="keywords" content="性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="这可能是最好的性能优化教程（一）">
-<meta property="og:url" content="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/index.html">
+<meta property="og:title" content="这可能是最好的性能优化教程（二）">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（二）/index.html">
 <meta property="og:site_name" content="nanchen">
-<meta property="og:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJav">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4e2f62f9c91f01e2a93fa4fcc9cbb541">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/67ee1a2c475df0f086b34767363a5742">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/0bb3f217e0a278bffc2d188f1472638a">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/17c617752cef86e8077b22bf2eb1686d">
+<meta property="og:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言上篇写了 ArrayMap 和 UI 性能优化，这篇我想和大家聊聊每个人都关心的 APP 启动，参见 Android 性能优化典范。 正文提高 APP 的启动速度对我们意义深远，很显然，APP 的启动时间越短，使用它的用户越有耐心等待打开这个 APP 进行使用。反">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/e0c0edf7e01e0bc91d978effbc7d4a64">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/eb5a1d193673afac9f13bcb25ff47112">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/b9f8bd447a29c9c58df6d9e87f58e8ab">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/703781adc50794562e75a7c4f2c722db">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/40fd3137d66de206bd94a7809be8eec6">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/6a0c4192f95ecfe6a77e0debbc7496dd">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/a1b9a3b11e048d59093c9dc46aa26264">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/01986f41ab78d5e5cd83a62e21fc5119">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/cb8ea4abf473718072a2fcbfb815c8bb">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/71c0748ab2986ae0c2178c59029ca28c">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e">
-<meta property="og:updated_time" content="2017-09-13T07:26:11.505Z">
+<meta property="og:updated_time" content="2017-09-13T07:26:23.264Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="这可能是最好的性能优化教程（一）">
-<meta name="twitter:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。 在这样的大背景下，加之我之前写的 RxJav">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a">
+<meta name="twitter:title" content="这可能是最好的性能优化教程（二）">
+<meta name="twitter:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言上篇写了 ArrayMap 和 UI 性能优化，这篇我想和大家聊聊每个人都关心的 APP 启动，参见 Android 性能优化典范。 正文提高 APP 的启动速度对我们意义深远，很显然，APP 的启动时间越短，使用它的用户越有耐心等待打开这个 APP 进行使用。反">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/9/13/e0c0edf7e01e0bc91d978effbc7d4a64">
 
 
 
@@ -138,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/"/>
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（二）/"/>
 
 
 
 
 
-  <title>这可能是最好的性能优化教程（一） | nanchen</title>
+  <title>这可能是最好的性能优化教程（二） | nanchen</title>
   
 
 
@@ -286,7 +291,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="南尘">
@@ -303,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">这可能是最好的性能优化教程（一）</h1>
+          <h1 class="post-title" itemprop="name headline">这可能是最好的性能优化教程（二）</h1>
         
 
         <div class="post-meta">
@@ -315,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T17:24:41+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T15:14:33+08:00">
+                2017-09-13
               </time>
             
 
@@ -356,9 +361,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/12/这可能是最好的性能优化教程（一）/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/13/这可能是最好的性能优化教程（二）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/09/12/这可能是最好的性能优化教程（一）/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/13/这可能是最好的性能优化教程（二）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -366,7 +371,7 @@
 
           
           
-             <span id="/2017/09/12/这可能是最好的性能优化教程（一）/" class="leancloud_visitors" data-flag-title="这可能是最好的性能优化教程（一）">
+             <span id="/2017/09/13/这可能是最好的性能优化教程（二）/" class="leancloud_visitors" data-flag-title="这可能是最好的性能优化教程（二）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -395,49 +400,42 @@
 
       
         <p>这可能是最好的性能优化教程系列专栏<br><a href="http://www.jianshu.com/p/17fd325b28f6" target="_blank" rel="external">这可能是最好的性能优化教程（一）</a><br><a href="http://www.jianshu.com/p/6da0a2595815" target="_blank" rel="external">这可能是最好的性能优化教程（二）</a><br><a href="http://www.jianshu.com/p/b46870bcafc2" target="_blank" rel="external">这可能是最好的性能优化教程（三）</a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>性能检测与分析，一直在 APP 开发中相当重要，但又被我们常常忽略。很多 APP 或者开发者总是急功近利，总想着快速充实 APP 的相关功能，把开发进度放在首位没有问题，可很多时候就没有然后了，这在整个开发界屡见不鲜。</p>
-<p>在这样的大背景下，加之我之前写的 <a href="https://github.com/nanchen2251/RxJava2Examples" target="_blank" rel="external">RxJava 2.0 系列</a> 收到较好的反馈，诱导我想出这么一个性能优化系列。</p>
-<h2 id="一些你可能需要知道的"><a href="#一些你可能需要知道的" class="headerlink" title="一些你可能需要知道的"></a>一些你可能需要知道的</h2><p>了解我的知道，我出的系列基本都是比较基础，而且侧重于常见必备。所以不一定全面，也不一定深入，所以希望理解。</p>
-<p>性能优化大概可以概括为：</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上篇写了 <code>ArrayMap</code> 和 UI 性能优化，这篇我想和大家聊聊每个人都关心的 APP 启动，参见 <a href="https://www.youtube.com/watch?v=Vw1G1s73DsY&amp;index=74&amp;list=PLWz5rJ2EKKc9CBxr3BVjPTPoDPLdPIFCE" target="_blank" rel="external">Android 性能优化典范</a>。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>提高 APP 的启动速度对我们意义深远，很显然，APP 的启动时间越短，使用它的用户越有耐心等待打开这个 APP 进行使用。反之，启动时间太长，用户则有可能还没等到 APP 打开就已经切换到其他 APP 了。</p>
+<p>程序启动过程中那些复杂错误的操作很有可能导致严重的性能问题。Android 系统会根据用户的操作行为调整程序的显示策略，用来提高程序的显示性能。例如，一旦用户点击桌面图标，Android 系统会立即显示一个启动窗口，这个窗口会一直保持显示直到画面中的元素成功加载并绘制完第一帧。这种行为常见于程序的冷启动，或者程序的热启动场景（程序从后台被唤起或者从其他 APP 界面切换回来）。</p>
+<p>那么关键的问题是，<strong>用户很可能会因为从启动窗口到显示画面的过程耗时过长而感到厌烦，从而导致用户没有来得及等程序启动完毕就切换到其他 APP 了。更严重的是，如果启动时间过长，可能导致程序出现 ANR。我们应该避免出现这两种糟糕的情况</strong>。</p>
+<p>从技术角度来说，当用户点击桌面图标开始，系统会立即为这个 APP 创建独立的专属进程，然后显示启动窗口，直到 APP 在自己的进程里面完成了程序的创建以及主线程完成了 Activity 的初始化显示操作，再然后系统进程就会把启动窗口替换成 APP 的显示窗口。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/e0c0edf7e01e0bc91d978effbc7d4a64" alt=""></p>
+<p>上述流程里面的绝大多数步骤都是由系统控制的，一般来说不会出现什么问题，可是对于启动速度，我们能够控制并且需要特别关注的地方主要有三处：</p>
 <ul>
-<li>性能优化说起来很简单，但做起来难。</li>
-<li>性能优化点多并且繁杂，需要耐心和经验。也许每个优化点很小，但积累起来会从量变变成质的飞跃。</li>
-<li>性能优化必须建立在产品设计之上，不能为了追求性能而忽略了产品设计。</li>
+<li>Activity 的 onCreate 流程，特别是UI的布局与渲染操作，如果布局过于复杂很可能导致严重的启动性能问题。</li>
+<li>Application 的 onCreate 流程，对于大型的 APP 来说，通常会在这里做大量的通用组件的初始化操作。</li>
+<li>目前有部分 APP 会提供自定义的启动窗口，这里可以做成品牌宣传界面或者是给用户提供一种程序已经启动的视觉效果。</li>
 </ul>
-<h2 id="提供一些资源-你可能需要梯子"><a href="#提供一些资源-你可能需要梯子" class="headerlink" title="提供一些资源 ( 你可能需要梯子 )"></a>提供一些资源 ( 你可能需要梯子 )</h2><ul>
-<li><a href="http://developer.android.com/intl/zh-cn/training/best-performance.html" target="_blank" rel="external">性能优化最佳实践</a></li>
-<li><a href="http://developer.android.com/intl.zh-cn/tools/performance/index.html" target="_blank" rel="external">性能优化工具</a></li>
-</ul>
-<h2 id="善用-ArrayMap"><a href="#善用-ArrayMap" class="headerlink" title="善用 ArrayMap"></a>善用 ArrayMap</h2><p>程序内存的管理是否合理高效对应用的性能有着很大的影响，有时候对容器的使用不当也会导致内存管理效率低下。想必已经有很多童鞋知道了 <code>SparseArray</code>，但它只是用于替代 List。</p>
-<p>我们经常会在程序中用到 <code>HashMap</code>，它非常好用，这毋庸置疑。但它却非常耗内存。<code>HashMap</code> 的工作原理这里我们就不讲了，有兴趣的自行科普。</p>
-<h4 id="更高效的-ArrayMap-容器"><a href="#更高效的-ArrayMap-容器" class="headerlink" title="更高效的 ArrayMap 容器"></a>更高效的 ArrayMap 容器</h4><p>为了解决 <code>HashMap</code> 更占内存的弊端，Android 提供了内存效率更高的 <code>ArrayMap</code>。它内部使用两个数组进行工作，其中一个数组记录 key hash 过后的顺序列表，另外一个数组按 key 的顺序记录 Key - Value 的值。如下图所示：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/4139b6e4c9f82c9fc932428330d11f0a" alt=""></p>
-<p>当你想获取某个 Value 的时候，<code>ArrayMap</code> 会计算输入 key 转换过后的 hash 值，然后对 hash 数组使用二分查找法寻找到对应的 index，然后我们可以通过这个 index 在另外一个数组中直接访问到需要的键值对。如果在第二个数组键值对中的 key 和前面输入的查询 key 不一致，那么就认为是发生了碰撞冲突。为了解决这个问题，我们会以该 key 为中心点，分别上下展开，逐个去对比查找，直到找到匹配的值。如下图所示：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/4e2f62f9c91f01e2a93fa4fcc9cbb541" alt=""></p>
-<p>随着数组中的对象越来越多，查找访问单个对象的花费也会跟着增长，这是在内存占用与访问时间之间做权衡交换。</p>
-<p>既然ArrayMap中的内存占用是连续不间断的，那么它是如何处理插入与删除操作的呢？请看下图所示，演示了Array的特性：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/67ee1a2c475df0f086b34767363a5742" alt=""></p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/0bb3f217e0a278bffc2d188f1472638a" alt=""><br>很明显，<code>ArrayMap</code> 的插入与删除的效率是不够高的，但是如果数组的列表只是在一百这个数量级上，则完全不用担心这些插入与删除的效率问题。<code>HashMap</code> 与 <code>ArrayMap</code> 之间的内存占用效率对比图如下：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/17c617752cef86e8077b22bf2eb1686d" alt=""></p>
-<p>与 <code>HashMap</code> 想必，<code>ArrayMap</code> 在循环遍历的时候也更加简单高效，因为其采用的是 fori 循环，而 <code>HashMap</code> 却使用的是糟糕的 <code>Iterator</code>。</p>
-<h4 id="并不是所有情况下都用-ArrayMap"><a href="#并不是所有情况下都用-ArrayMap" class="headerlink" title="并不是所有情况下都用 ArrayMap"></a>并不是所有情况下都用 ArrayMap</h4><p><code>ArrayMap</code> 这么优秀，但并不是所有情况下都适合使用 <code>ArrayMap</code>，我们应该在满足下面两个条件的时候才考虑使用 <code>ArrayMap</code>：</p>
+<p>在正式着手解决问题之前，我们需要掌握一套正确测量评估启动性能的方法。所幸的是，Android 系统有提供一些工具来帮助我们定位问题。</p>
+<h2 id="有趣的启动时长定位"><a href="#有趣的启动时长定位" class="headerlink" title="有趣的启动时长定位"></a>有趣的启动时长定位</h2><h4 id="display-time"><a href="#display-time" class="headerlink" title="display time"></a>display time</h4><p>从 Android KitKat 版本开始，Logcat 中会输出从程序启动到某个 Activity 显示到画面上所花费的时间。这个方法比较适合测量程序的启动时间。<br><img src="https://user-gold-cdn.xitu.io/2017/9/13/eb5a1d193673afac9f13bcb25ff47112" alt=""></p>
+<h4 id="reportFullyDrawn"><a href="#reportFullyDrawn" class="headerlink" title="reportFullyDrawn()"></a>reportFullyDrawn()</h4><p>我们通常来说会使用异步懒加载的方式来提升程序画面的显示速度，这通常会导致的一个问题是，程序画面已经显示，可是内容却还在加载中。为了衡量这些异步加载资源所耗费的时间，我们可以在异步加载完毕之后调用 <code>activity.reportFullyDrawn()</code> 方法来告诉系统此时的状态，以便获取整个加载的耗时。<br><img src="https://user-gold-cdn.xitu.io/2017/9/13/b9f8bd447a29c9c58df6d9e87f58e8ab" alt=""></p>
+<h4 id="Method-Tracing"><a href="#Method-Tracing" class="headerlink" title="Method Tracing"></a>Method Tracing</h4><p>前面两个方法提供了启动耗时的总时间，可是却无法提供具体的耗时细节。为了获取具体的耗时分布情况，我们可以使用 Method Tracing 工具来进行详细的测量。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/703781adc50794562e75a7c4f2c722db" alt=""></p>
+<h4 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h4><p>我们可以在 <code>onCreate()</code> 方法里面添加 <code>trace.beginSection()</code> 与 <code>trace.endSection()</code> 方法来声明需要跟踪的起止位置，系统会帮忙统计中间经历过的函数调用耗时，并输出报表。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/40fd3137d66de206bd94a7809be8eec6" alt=""></p>
+<h2 id="如果优化-APP-启动速度？"><a href="#如果优化-APP-启动速度？" class="headerlink" title="如果优化 APP 启动速度？"></a>如果优化 APP 启动速度？</h2><h4 id="提升-Activity-的创建速度"><a href="#提升-Activity-的创建速度" class="headerlink" title="提升 Activity 的创建速度"></a>提升 Activity 的创建速度</h4><p>提升 Activity 的创建速度是优化 APP 启动速度的首要关注目标。从桌面点击 APP 图标启动应用开始，程序会显示一个启动窗口等待 Activity 的创建加载完毕再进行显示。在 Activity 的创建加载过程中，会执行很多的操作，例如设置页面的主题，初始化页面的布局，加载图片，获取网络数据，读写 Preference 等等。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/6a0c4192f95ecfe6a77e0debbc7496dd" alt=""><br>上述操作的任何一个环节出现性能问题都可能导致画面不能及时显示，影响了程序的启动速度。上一个段落我们介绍了使用 Method Tracing 来发现那些耗时占比相对较多的方法。假设我们发现某个方法执行时间过长，接下去就可以使用 Systrace 来帮忙定位到底是什么原因导致那个方法执行时间过长。</p>
+<p>除了使用工具进行具体定位分析性能问题之外，以下两点经验可以帮助我们对 Activity 启动做性能优化：</p>
 <ul>
-<li>对象个数的数量级最好在 1000 以内。</li>
-<li>数据组织形式包含 Map 结构。</li>
+<li>优化布局耗时：一个布局层级越深，里面包含需要加载的元素越多，就会耗费更多的初始化时间。关于布局性能的优化，这里就不展开描述了！</li>
+<li>异步延迟加载：一开始只初始化最需要的布局，异步加载图片，非立即需要的组件可以做延迟加载。</li>
 </ul>
-<p>所以我们需要学会在特定清醒下选择相对更加高效的实现方式。</p>
-<h2 id="UI-性能确实很重要"><a href="#UI-性能确实很重要" class="headerlink" title="UI 性能确实很重要"></a>UI 性能确实很重要</h2><p>UI 界面是整个 APP 性能的最前端展示，也是最容易看出性能问题的地方。可以毫不夸张地说，UI 性能的好坏直接影响这用户的体验和留存。UI 性能的目标是：</p>
-<ul>
-<li>减少绘图的等待时间。</li>
-<li>使帧率更加平稳、连贯。</li>
-</ul>
-<h4 id="UI-布局的核心原则"><a href="#UI-布局的核心原则" class="headerlink" title="UI 布局的核心原则"></a>UI 布局的核心原则</h4><p>核心原则一句话，尽可能地减少 View 的数量！</p>
-<p>我们可以通过 <code>include</code>、<code>merge</code>、<code>viewstub</code> 进行布局复用，通过控件属性 DrawableLeft、DrawableRight 等方式进行控件整合。</p>
-<h4 id="听说我们要尽可能地用-RelativeLayout"><a href="#听说我们要尽可能地用-RelativeLayout" class="headerlink" title="听说我们要尽可能地用 RelativeLayout ?"></a>听说我们要尽可能地用 RelativeLayout ?</h4><p>想必一些资历较老的 Android 开发者都知道，一开始系统默认创建的布局是 LinearLayout，后面替换成了 RelativeLayout，现在又变成了 ConstraintLayout 。由于我对 ConstraintLayout 不是特别了解，所以这里我着重说说 RelativeLayout 和 LinearLayout 。</p>
-<p>我不知道在什么时候听说过，<strong>如果我们能用 RelativeLayout 的地方，尽量不要用 LinearLayout</strong> 。</p>
-<p>这种说法是不对的，实际开发中，决不能简单地说 RelativeLayout 和 LinearLayout 谁的性能更好，必须结合实际使用来进行分析。</p>
-<p>基本可以总结为：一般情况下，如果使用 LinearLayout，则一定要保证层级不能太深；如果使用 RelativeLayout，则需要尽量避免嵌套。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>以上便是本期内容，由于楼主也是开发任务很多，所以只能在有空的时候更新，如果想第一时间收到更新信息的请关注我的公众号：nanchen</p>
+<h4 id="别让-Application-初始化不必要的东西"><a href="#别让-Application-初始化不必要的东西" class="headerlink" title="别让 Application 初始化不必要的东西"></a>别让 Application 初始化不必要的东西</h4><p>在 Application 初始化的地方做太多繁重的事情是可能导致严重启动性能问题的元凶之一。Application 里面的初始化操作不结束，其他任意的程序操作都无法进行。</p>
+<p>有时候，我们会一股脑的把绝大多数全局组件的初始化操作都放在 Application 的 <code>onCreate()</code> 里面，但其实很多组件是需要做区队对待的，有些可以做延迟加载，有些可以放到其他的地方做初始化操作，特别需要留意包含 Disk IO 操作，网络访问等严重耗时的任务，他们会严重阻塞程序的启动。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/a1b9a3b11e048d59093c9dc46aa26264" alt=""><br>优化这些问题的解决方案是做延迟加载，可以在 Application 里面做延迟加载，也可以把一些初始化的操作延迟到组件真正被调用到的时候再做加载。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/01986f41ab78d5e5cd83a62e21fc5119" alt=""></p>
+<h4 id="恰当地使用闪屏"><a href="#恰当地使用闪屏" class="headerlink" title="恰当地使用闪屏"></a>恰当地使用闪屏</h4><p>启动闪屏不仅仅可以作为品牌宣传页，还能够减轻用户对启动耗时的感知，但是如果使用不恰当，将适得其反。前面介绍过当点击桌面图标启动 APP 的时候，程序会显示一个启动窗口，一直到页面的渲染加载完毕。如果程序的启动速度足够快，我们看的闪屏窗口停留显示的时间则会很短，但是当程序启动速度偏慢的时候，这个启动闪屏可以一定程度上减轻用户等待的焦虑感，避免用户过于轻易的关闭应用。</p>
+<p>目前大多数开发者都会通过设置启动窗口主题的方式来替换系统默认的启动窗口，通过这种方式只是使用『障眼法』弱化了用户对启动时间的感知，但本质上并没有对启动速度做什么优化。也有些 APP 通过关闭启动窗口属性 <code>android:windowDisablePreview</code> 的方式来直接移除系统默认的启动窗口，但是这样的弊端是用户从点击桌面图标到真的看到实际页面的这段时间当中，画面没有任何变化，这样的用户体验是十分糟糕的！</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/cb8ea4abf473718072a2fcbfb815c8bb" alt=""></p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/71c0748ab2986ae0c2178c59029ca28c" alt=""></p>
+<p>对于启动闪屏，正确的使用方法是自定义一张图片，把这张图片通过设置主题的方式显示为启动闪屏，代码执行到主页面的 <code>onCreate()</code> 的时候设置为程序正常的主题。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>本篇我们根据胡凯老师总结，解决了启动速度响应，下期我们将带来内存管理章节。<br>如果想第一时间收到更新信息的可以关注我的简书：<a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" rel="external">简书地址</a><br>你也可以选择关注我的公众号：nanchen</p>
 <p><img src="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e" alt=""></p>
 
       
@@ -481,8 +479,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/23/Android-开发者，如何提升自己的职场竞争力？/" rel="next" title="Android 开发者，如何提升自己的职场竞争力？">
-                <i class="fa fa-chevron-left"></i> Android 开发者，如何提升自己的职场竞争力？
+              <a href="/2017/09/12/这可能是最好的性能优化教程（一）/" rel="next" title="这可能是最好的性能优化教程（一）">
+                <i class="fa fa-chevron-left"></i> 这可能是最好的性能优化教程（一）
               </a>
             
           </div>
@@ -491,8 +489,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/13/这可能是最好的性能优化教程（二）/" rel="prev" title="这可能是最好的性能优化教程（二）">
-                这可能是最好的性能优化教程（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/13/这可能是最好的性能优化教程（三）/" rel="prev" title="这可能是最好的性能优化教程（三）">
+                这可能是最好的性能优化教程（三） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -690,7 +688,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些你可能需要知道的"><span class="nav-number">2.</span> <span class="nav-text">一些你可能需要知道的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供一些资源-你可能需要梯子"><span class="nav-number">3.</span> <span class="nav-text">提供一些资源 ( 你可能需要梯子 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善用-ArrayMap"><span class="nav-number">4.</span> <span class="nav-text">善用 ArrayMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更高效的-ArrayMap-容器"><span class="nav-number">4.0.1.</span> <span class="nav-text">更高效的 ArrayMap 容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并不是所有情况下都用-ArrayMap"><span class="nav-number">4.0.2.</span> <span class="nav-text">并不是所有情况下都用 ArrayMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI-性能确实很重要"><span class="nav-number">5.</span> <span class="nav-text">UI 性能确实很重要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-布局的核心原则"><span class="nav-number">5.0.1.</span> <span class="nav-text">UI 布局的核心原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#听说我们要尽可能地用-RelativeLayout"><span class="nav-number">5.0.2.</span> <span class="nav-text">听说我们要尽可能地用 RelativeLayout ?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有趣的启动时长定位"><span class="nav-number">3.</span> <span class="nav-text">有趣的启动时长定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-time"><span class="nav-number">3.0.1.</span> <span class="nav-text">display time</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reportFullyDrawn"><span class="nav-number">3.0.2.</span> <span class="nav-text">reportFullyDrawn()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Method-Tracing"><span class="nav-number">3.0.3.</span> <span class="nav-text">Method Tracing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Systrace"><span class="nav-number">3.0.4.</span> <span class="nav-text">Systrace</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果优化-APP-启动速度？"><span class="nav-number">4.</span> <span class="nav-text">如果优化 APP 启动速度？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提升-Activity-的创建速度"><span class="nav-number">4.0.1.</span> <span class="nav-text">提升 Activity 的创建速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#别让-Application-初始化不必要的东西"><span class="nav-number">4.0.2.</span> <span class="nav-text">别让 Application 初始化不必要的东西</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恰当地使用闪屏"><span class="nav-number">4.0.3.</span> <span class="nav-text">恰当地使用闪屏</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
             
 
           </div>
@@ -840,9 +838,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://nanchen2251.github.io/2017/09/12/这可能是最好的性能优化教程（一）/';
-          this.page.identifier = '2017/09/12/这可能是最好的性能优化教程（一）/';
-          this.page.title = '这可能是最好的性能优化教程（一）';
+          this.page.url = 'https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（二）/';
+          this.page.identifier = '2017/09/13/这可能是最好的性能优化教程（二）/';
+          this.page.title = '这可能是最好的性能优化教程（二）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

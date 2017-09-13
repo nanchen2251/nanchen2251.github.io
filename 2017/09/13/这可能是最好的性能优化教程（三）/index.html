@@ -1,0 +1,1025 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="性能优化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言内存泄漏从来都是我们老生常谈的话题，无论是 Android Studio 自带的内存泄漏分析工具还是专业的 Eclipse MAT 抑或是备受青睐的第三方插件 LeakCanary，都为我们的内存泄漏检测提供了便利。如果从根源上解决内存泄漏，内存优化必不可少。所以">
+<meta name="keywords" content="性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="这可能是最好的性能优化教程（三）">
+<meta property="og:url" content="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（三）/index.html">
+<meta property="og:site_name" content="nanchen">
+<meta property="og:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言内存泄漏从来都是我们老生常谈的话题，无论是 Android Studio 自带的内存泄漏分析工具还是专业的 Eclipse MAT 抑或是备受青睐的第三方插件 LeakCanary，都为我们的内存泄漏检测提供了便利。如果从根源上解决内存泄漏，内存优化必不可少。所以">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/13/86fa2888c7dc335bdd4873111217cf19">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e">
+<meta property="og:updated_time" content="2017-09-13T07:25:49.844Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="这可能是最好的性能优化教程（三）">
+<meta name="twitter:description" content="这可能是最好的性能优化教程系列专栏这可能是最好的性能优化教程（一）这可能是最好的性能优化教程（二）这可能是最好的性能优化教程（三） 前言内存泄漏从来都是我们老生常谈的话题，无论是 Android Studio 自带的内存泄漏分析工具还是专业的 Eclipse MAT 抑或是备受青睐的第三方插件 LeakCanary，都为我们的内存泄漏检测提供了便利。如果从根源上解决内存泄漏，内存优化必不可少。所以">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/9/13/86fa2888c7dc335bdd4873111217cf19">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（三）/"/>
+
+
+
+
+
+  <title>这可能是最好的性能优化教程（三） | nanchen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	
+	<a href="https://github.com/nanchen2251"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanchen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做不完的开源，写不完的矫情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南尘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanchen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">这可能是最好的性能优化教程（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T15:25:12+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/13/这可能是最好的性能优化教程（三）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/13/这可能是最好的性能优化教程（三）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/09/13/这可能是最好的性能优化教程（三）/" class="leancloud_visitors" data-flag-title="这可能是最好的性能优化教程（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这可能是最好的性能优化教程系列专栏<br><a href="http://www.jianshu.com/p/17fd325b28f6" target="_blank" rel="external">这可能是最好的性能优化教程（一）</a><br><a href="http://www.jianshu.com/p/6da0a2595815" target="_blank" rel="external">这可能是最好的性能优化教程（二）</a><br><a href="http://www.jianshu.com/p/b46870bcafc2" target="_blank" rel="external">这可能是最好的性能优化教程（三）</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>内存泄漏从来都是我们老生常谈的话题，无论是 Android Studio 自带的内存泄漏分析工具还是专业的 Eclipse MAT 抑或是备受青睐的第三方插件 <a href="https://github.com/square/leakcanary" target="_blank" rel="external">LeakCanary</a>，都为我们的内存泄漏检测提供了便利。如果从根源上解决内存泄漏，内存优化必不可少。所以本章节我们参考扔物线胡凯的内存优化策略，直接拿出一章节来谈内存优化。</p>
+<p>内存优化基本可以分为下面几个方面</p>
+<ul>
+<li>减少对象的内存占用</li>
+<li>对内存对象进行复用</li>
+<li>避免对象的内存泄漏</li>
+<li>内存使用策略优化</li>
+</ul>
+<h2 id="减少对象的内存占用"><a href="#减少对象的内存占用" class="headerlink" title="减少对象的内存占用"></a>减少对象的内存占用</h2><h4 id="避免在-Android-里面使用-Enum"><a href="#避免在-Android-里面使用-Enum" class="headerlink" title="避免在 Android 里面使用 Enum"></a>避免在 Android 里面使用 Enum</h4><p>Enum 是 Java 中包含固定常量的数据类型，当需要知道预先定制的几个值，这几个值表示一些数据类，我们都可以使用 Enum。我们一般用 Enum 做一些编译时检查，以避免传入不合法的参数。</p>
+<p>但 Enum 的每个对象都是 Object，在 Android 官网上就早已明确指出应该在 Android 开发中避免使用 Enum，因为与静态常量想必，它对内存的占用是要大很多的。</p>
+<p>因此在实际开发中，我更加倾向于接口变量，因为接口会自动把成员变量设置为 static 和 final 的，这一点可以防止某些情况下错误地添加新的常量，这也使得代码看起来更加简单和清晰。</p>
+<h4 id="使用更加轻量的数据结构"><a href="#使用更加轻量的数据结构" class="headerlink" title="使用更加轻量的数据结构"></a>使用更加轻量的数据结构</h4><p>前面第一节已经说过，我们应该更加倾向于考虑使用 <code>ArrayMap</code> 和 <code>SparseArray</code> 而不是 <code>HashMap</code> 等传统数据结果，前面已经用图示演示了 <code>HashMap</code> 的简要工作原理，相比起 Android 系统专门为移动操作系统编写的 <code>ArrayMap</code> 容器，<strong>在大多数情况下</strong>，都显示效率低下，更占内存。通常的 <code>HashMap</code> 的实现方式更加消耗内存，因为它需要一个额外的实例对象来记录 <code>Mapping</code> 操作。另外，<code>SparseArray</code> 更加高效在于他们避免了对 <code>key</code> 和 <code>value</code> 的 <code>autobox</code> 自动装箱，并且避免了装箱后的解箱。</p>
+<h4 id="使用更小的图片"><a href="#使用更小的图片" class="headerlink" title="使用更小的图片"></a>使用更小的图片</h4><p>在设计给到资源图片的时候，我们需要特别留意这张图片是否存在可以压缩的空间，是否可以使用一张更小的图片。尽量使用更小的图片不仅仅可以减少内存的使用，还可以避免出现大量的 <code>InflationException</code>。假设有一张很大的图片被 XML 文件直接引用，很有可能在初始化视图的时候就会因为内存不足而发生 <code>InflationException</code>，这个问题的根本原因其实是发生了 OOM。</p>
+<h4 id="减少-Bitmap-对象的内存占用"><a href="#减少-Bitmap-对象的内存占用" class="headerlink" title="减少 Bitmap 对象的内存占用"></a>减少 Bitmap 对象的内存占用</h4><p>Bitmap是一个极容易消耗内存的大胖子，减小创建出来的Bitmap的内存占用是很重要的，通常来说有下面2个措施：</p>
+<ul>
+<li>inSampleSize：缩放比例，在把图片载入内存之前，我们需要先计算出一个合适的缩放比例，避免不必要的大图载入。</li>
+<li>decode format：解码格式，选择 ARGB_8888 / RBG_565 / ARGB_4444 / ALPHA_8，存在很大差异。</li>
+</ul>
+<h4 id="尽量地采用-int-类型"><a href="#尽量地采用-int-类型" class="headerlink" title="尽量地采用 int 类型"></a>尽量地采用 int 类型</h4><p>Android 系统中 float 类型的数据存取速度是 int 类型的一半，尽量优先采用 int 类型。而同样能作为整数的代名词，采用 int 替换 Integer 会让你的内存开销更小。</p>
+<h2 id="对内存对象进行复用"><a href="#对内存对象进行复用" class="headerlink" title="对内存对象进行复用"></a>对内存对象进行复用</h2><h4 id="复用系统自带的资源"><a href="#复用系统自带的资源" class="headerlink" title="复用系统自带的资源"></a>复用系统自带的资源</h4><p>Android 系统本身内置了很多的资源，例如字符串 / 颜色 / 图片 / 动画 / 样式以及简单布局等等，这些资源都可以在应用程序中直接引用。这样做不仅仅可以减少应用程序的自身负重，减小 APK 的大小，另外还可以一定程度上减少内存的开销，复用性更好。但是也有必要留意 Android 系统的版本差异性，对那些不同系统版本上表现存在很大差异，不符合需求的情况，还是需要应用程序自身内置进去。</p>
+<h4 id="注意-ListView-GridView-的-Adapter-对-ConvertView-进行复用"><a href="#注意-ListView-GridView-的-Adapter-对-ConvertView-进行复用" class="headerlink" title="注意 ListView / GridView 的 Adapter 对 ConvertView 进行复用"></a>注意 ListView / GridView 的 Adapter 对 ConvertView 进行复用</h4><p>这个貌似没啥好说的，太基础了，而且我们可能现在更加青睐于 <code>RecyclerView</code>。</p>
+<h4 id="尽量的采用-StringBuilder"><a href="#尽量的采用-StringBuilder" class="headerlink" title="尽量的采用 StringBuilder"></a>尽量的采用 StringBuilder</h4><p>这个也特别基础，我们点到为止。大概就是尽量的采用 <code>StringBuilder</code> / <code>StringBuffer</code> 来替换我们频繁的字符串拼接。</p>
+<h4 id="尽量使用原字符串的-subString"><a href="#尽量使用原字符串的-subString" class="headerlink" title="尽量使用原字符串的 subString"></a>尽量使用原字符串的 subString</h4><p>当从已经存在的数据集中抽取出 String 的时候，尝试返回原数据的 subString 对象，而不要创建一个重复的对象。</p>
+<h4 id="避免在-onDraw-里面执行对象的创建"><a href="#避免在-onDraw-里面执行对象的创建" class="headerlink" title="避免在 onDraw() 里面执行对象的创建"></a>避免在 onDraw() 里面执行对象的创建</h4><p>类似 onDraw() 等频繁调用的方法，一定需要注意避免在这里做创建对象的操作，因为他会迅速增加内存的使用，而且很容易引起频繁的 gc，甚至是内存抖动。</p>
+<h2 id="避免对象的内存泄漏"><a href="#避免对象的内存泄漏" class="headerlink" title="避免对象的内存泄漏"></a>避免对象的内存泄漏</h2><p>内存对象的泄漏，会导致一些不再使用的对象无法及时释放，这样一方面占用了宝贵的内存空间，很容易导致后续需要分配内存的时候，空闲空间不足而出现 OOM。显然，这还使得每级 Generation 的内存区域可用空间变小，gc 就会更容易被触发，容易出现内存抖动，从而引起性能问题。</p>
+<h4 id="注意-Activity-的泄漏"><a href="#注意-Activity-的泄漏" class="headerlink" title="注意 Activity 的泄漏"></a>注意 Activity 的泄漏</h4><p>通常来说，Activity 的泄漏是内存泄漏里面最严重的问题，它占用的内存多，影响面广，我们需要特别注意以下两种情况导致的 Activity 泄漏：</p>
+<ul>
+<li><p>内部类引用导致 Activity 的泄漏<br>最典型的场景是 Handler 导致的 Activity 泄漏，如果 Handler 中有延迟的任务或者是等待执行的任务队列过长，都有可能因为 Handler 继续执行而导致 Activity 发生泄漏。此时的引用关系链是 Looper -&gt; MessageQueue -&gt; Message -&gt; Handler -&gt; Activity。为了解决这个问题，可以在 UI 退出之前，执行 remove Handler 消息队列中的消息与 runnable 对象。或者是使用 Static + WeakReference 的方式来达到断开 Handler 与 Activity 之间存在引用关系的目的。</p>
+</li>
+<li><p>Activity Context 被传递到其他实例中，这可能导致自身被引用而发生泄漏。<br>内部类引起的泄漏不仅仅会发生在 Activity 上，其他任何内部类出现的地方，都需要特别留意！我们可以考虑尽量使用 static 类型的内部类，同时使用 WeakReference 的机制来避免因为互相引用而出现的泄露。</p>
+</li>
+</ul>
+<h4 id="尽量地采用-Application-Context"><a href="#尽量地采用-Application-Context" class="headerlink" title="尽量地采用 Application Context"></a>尽量地采用 Application Context</h4><p>对于大部分非必须使用 Activity Context 的情况（Dialog 的 Context 就必须是Activity Context），我们都可以考虑使用 Application Context 而不是 Activity 的 Context，这样可以避免不经意的 Activity 泄露。</p>
+<p>而且如果习惯 Glide 的童鞋可能会发现，<strong>Glide 需要传递的 Context 如果是 Activity 的 Context ，那么在 Activity 被销毁后还没加载出来的话还会引发崩溃</strong>。所以，请在使用 Glide 或者 Toast 等的时候，直接传递 Application Context 吧。</p>
+<h4 id="注意-Cursor-对象是否及时关闭"><a href="#注意-Cursor-对象是否及时关闭" class="headerlink" title="注意 Cursor 对象是否及时关闭"></a>注意 Cursor 对象是否及时关闭</h4><p>在程序中我们经常会进行查询数据库的操作，但时常会存在不小心使用 Cursor 之后没有及时关闭的情况。这些 Cursor 的泄露，反复多次出现的话会对内存管理产生很大的负面影响，我们需要谨记对 Cursor 对象的及时关闭。</p>
+<h4 id="注意-WebView-的泄漏"><a href="#注意-WebView-的泄漏" class="headerlink" title="注意 WebView 的泄漏"></a>注意 WebView 的泄漏</h4><p>Android中 的 WebView 存在很大的兼容性问题，不仅仅是 Android 系统版本的不同对 WebView 产生很大的差异，另外不同的厂商出货的 ROM 里面 WebView 也存在着很大的差异。更严重的是标准的 WebView 存在内存泄露的问题，看<a href="https://code.google.com/p/android/issues/detail?id=5067" target="_blank" rel="external">这里</a>。所以通常根治这个问题的办法是为 WebView 开启另外一个进程，通过 AIDL 与主进程进行通信，WebView 所在的进程可以根据业务的需要选择合适的时机进行销毁，从而达到内存的完整释放。</p>
+<h4 id="注意临时-Bitmap-对象的及时回收"><a href="#注意临时-Bitmap-对象的及时回收" class="headerlink" title="注意临时 Bitmap 对象的及时回收"></a>注意临时 Bitmap 对象的及时回收</h4><p>虽然在大多数情况下，我们会对 Bitmap 增加缓存机制，但是在某些时候，部分 Bitmap 是需要及时回收的。例如临时创建的某个相对比较大的 Bitmap 对象，在经过变换得到新的 Bitmap 对象之后，应该尽快回收原始的 Bitmap，这样能够更快释放原始 Bitmap 所占用的空间。</p>
+<p>需要特别留意的是 Bitmap 类里面提供的 createBitmap() 方法：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/13/86fa2888c7dc335bdd4873111217cf19" alt=""><br>这个函数返回的 Bitmap 有可能和 source bitmap 是同一个，在回收的时候，需要特别检查 source bitmap 与 return bitmap 的引用是否相同，只有在不等的情况下，才能够执行 source bitmap 的 recycle() 方法。</p>
+<h4 id="注意监听器的注销"><a href="#注意监听器的注销" class="headerlink" title="注意监听器的注销"></a>注意监听器的注销</h4><p>在 Android 程序里面存在很多需要 register 与 unregister 的监听器，我们需要确保在合适的时候及时 unregister 那些监听器。自己手动 add 的 listener，需要记得及时 remove 这个 listener。</p>
+<h2 id="内存使用策略优化"><a href="#内存使用策略优化" class="headerlink" title="内存使用策略优化"></a>内存使用策略优化</h2><h4 id="谨慎使用-large-heap"><a href="#谨慎使用-large-heap" class="headerlink" title="谨慎使用 large heap"></a>谨慎使用 large heap</h4><p>Android 设备根据硬件与软件的设置差异而存在不同大小的内存空间，他们为应用程序设置了不同大小的 Heap 限制阈值。你可以通过调用 <code>getMemoryClass()</code> 来获取应用的可用 Heap 大小。在一些特殊的情景下，你可以通过在 manifest 的 application 标签下添加 <code>largeHeap = true</code> 的属性来为应用声明一个更大的 heap 空间。然后，你可以通过 <code>getLargeMemoryClass()</code> 来获取到这个更大的 heap size 阈值。然而，声明得到更大 Heap 阈值的本意是为了一小部分会消耗大量 RAM 的应用 ( 例如一个大图片的编辑应用 ) 。不要轻易的因为你需要使用更多的内存而去请求一个大的 Heap Size。只有当你清楚的知道哪里会使用大量的内存并且知道为什么这些内存必须被保留时才去使用 large heap。因此请谨慎使用 large heap 属性。使用额外的内存空间会影响系统整体的用户体验，并且会使得每次 gc 的运行时间更长。在任务切换时，系统的性能会大打折扣。另外, large heap 并不一定能够获取到更大的 heap。在某些有严格限制的机器上，large heap 的大小和通常的 heap size 是一样的。因此即使你申请了 large heap，你还是应该通过执行 <code>getMemoryClass()</code> 来检查实际获取到的 heap 大小。</p>
+<h4 id="资源文件需要选择合适的文件夹进行存放"><a href="#资源文件需要选择合适的文件夹进行存放" class="headerlink" title="资源文件需要选择合适的文件夹进行存放"></a>资源文件需要选择合适的文件夹进行存放</h4><p>我们知道 hdpi / xhdpi / xxhdpi 等等不同 dpi 的文件夹下的图片在不同的设备上会经过 scale 的处理。例如我们只在 hdpi 的目录下放置了一张 100 x 100 的图片，那么根据换算关系，xxhdpi 的手机去引用那张图片就会被拉伸到 200 x 200。需要注意到在这种情况下，内存占用是会显著提高的。对于不希望被拉伸的图片，需要放到 assets 或者 nodpi 的目录下。</p>
+<h4 id="Try-catch某些大内存分配的操作"><a href="#Try-catch某些大内存分配的操作" class="headerlink" title="Try catch某些大内存分配的操作"></a>Try catch某些大内存分配的操作</h4><p>在某些情况下，我们需要事先评估那些可能发生 OOM 的代码，对于这些可能发生 OOM 的代码，加入 catch 机制，可以考虑在 catch 里面尝试一次降级的内存分配操作。例如 decode bitmap 的时候，catch 到 OOM，可以尝试把采样比例再增加一倍之后，再次尝试 decode。</p>
+<h4 id="谨慎使用-static-对象"><a href="#谨慎使用-static-对象" class="headerlink" title="谨慎使用 static 对象"></a>谨慎使用 static 对象</h4><p>因为 static 的生命周期过长，和应用的进程保持一致，使用不当很可能导致对象泄漏，在 Android 中应该谨慎使用 static 对象。</p>
+<h4 id="特别留意单例对象中不合理的持有"><a href="#特别留意单例对象中不合理的持有" class="headerlink" title="特别留意单例对象中不合理的持有"></a>特别留意单例对象中不合理的持有</h4><p>虽然单例模式简单实用，提供了很多便利性，但是因为单例的生命周期和应用保持一致，使用不合理很容易出现持有对象的泄漏。<strong>特别是持有 Context 的引用，需要谨慎对待</strong>。</p>
+<h4 id="优化布局层次，减少内存消耗"><a href="#优化布局层次，减少内存消耗" class="headerlink" title="优化布局层次，减少内存消耗"></a>优化布局层次，减少内存消耗</h4><p>越扁平化的视图布局，占用的内存就越少，效率越高。我们需要尽量保证布局足够扁平化，当使用系统提供的 View 无法实现足够扁平的时候考虑使用自定义 View 来达到目的。</p>
+<h4 id="谨慎使用多进程"><a href="#谨慎使用多进程" class="headerlink" title="谨慎使用多进程"></a>谨慎使用多进程</h4><p>使用多进程可以把应用中的部分组件运行在单独的进程当中，这样可以扩大应用的内存占用范围，但是这个技术必须谨慎使用，绝大多数应用都不应该贸然使用多进程，一方面是因为使用多进程会使得代码逻辑更加复杂，另外如果使用不当，它可能反而会导致显著增加内存。当你的应用需要运行一个常驻后台的任务，而且这个任务并不轻量，可以考虑使用这个技术。</p>
+<p>一个典型的例子是创建一个可以长时间后台播放的 Music Player。如果整个应用都运行在一个进程中，当后台播放的时候，前台的那些 UI 资源也没有办法得到释放。类似这样的应用可以切分成 2 个进程：一个用来操作 UI，另外一个给后台的 Service。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>内存优化并不就是说程序占用的内存越少就越好，如果因为想要保持更低的内存占用，而频繁触发执行 gc 操作，在某种程度上反而会导致应用性能整体有所下降，这里需要综合考虑做一定的权衡。</p>
+<p>如果想第一时间收到更新信息的可以关注我的简书：<a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" rel="external">简书地址</a><br>你也可以选择关注我的公众号：nanchen</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/9/12/58bbc5c6f9c4463558627304f3da745e" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/13/这可能是最好的性能优化教程（二）/" rel="next" title="这可能是最好的性能优化教程（二）">
+                <i class="fa fa-chevron-left"></i> 这可能是最好的性能优化教程（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="南尘" />
+          <p class="site-author-name" itemprop="name">南尘</p>
+           
+              <p class="site-description motion-element" itemprop="description">做不完的开源，写不完的矫情</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nanchen2251" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f690947ed5a6" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/liushilin/" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.apkbus.com/space-uid-898535.html" target="_blank" title="巴士">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  巴士
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少对象的内存占用"><span class="nav-number">2.</span> <span class="nav-text">减少对象的内存占用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#避免在-Android-里面使用-Enum"><span class="nav-number">2.0.1.</span> <span class="nav-text">避免在 Android 里面使用 Enum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用更加轻量的数据结构"><span class="nav-number">2.0.2.</span> <span class="nav-text">使用更加轻量的数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用更小的图片"><span class="nav-number">2.0.3.</span> <span class="nav-text">使用更小的图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少-Bitmap-对象的内存占用"><span class="nav-number">2.0.4.</span> <span class="nav-text">减少 Bitmap 对象的内存占用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量地采用-int-类型"><span class="nav-number">2.0.5.</span> <span class="nav-text">尽量地采用 int 类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对内存对象进行复用"><span class="nav-number">3.</span> <span class="nav-text">对内存对象进行复用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复用系统自带的资源"><span class="nav-number">3.0.1.</span> <span class="nav-text">复用系统自带的资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-ListView-GridView-的-Adapter-对-ConvertView-进行复用"><span class="nav-number">3.0.2.</span> <span class="nav-text">注意 ListView / GridView 的 Adapter 对 ConvertView 进行复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量的采用-StringBuilder"><span class="nav-number">3.0.3.</span> <span class="nav-text">尽量的采用 StringBuilder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量使用原字符串的-subString"><span class="nav-number">3.0.4.</span> <span class="nav-text">尽量使用原字符串的 subString</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免在-onDraw-里面执行对象的创建"><span class="nav-number">3.0.5.</span> <span class="nav-text">避免在 onDraw() 里面执行对象的创建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免对象的内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">避免对象的内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-Activity-的泄漏"><span class="nav-number">4.0.1.</span> <span class="nav-text">注意 Activity 的泄漏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量地采用-Application-Context"><span class="nav-number">4.0.2.</span> <span class="nav-text">尽量地采用 Application Context</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-Cursor-对象是否及时关闭"><span class="nav-number">4.0.3.</span> <span class="nav-text">注意 Cursor 对象是否及时关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-WebView-的泄漏"><span class="nav-number">4.0.4.</span> <span class="nav-text">注意 WebView 的泄漏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意临时-Bitmap-对象的及时回收"><span class="nav-number">4.0.5.</span> <span class="nav-text">注意临时 Bitmap 对象的及时回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意监听器的注销"><span class="nav-number">4.0.6.</span> <span class="nav-text">注意监听器的注销</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存使用策略优化"><span class="nav-number">5.</span> <span class="nav-text">内存使用策略优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#谨慎使用-large-heap"><span class="nav-number">5.0.1.</span> <span class="nav-text">谨慎使用 large heap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源文件需要选择合适的文件夹进行存放"><span class="nav-number">5.0.2.</span> <span class="nav-text">资源文件需要选择合适的文件夹进行存放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Try-catch某些大内存分配的操作"><span class="nav-number">5.0.3.</span> <span class="nav-text">Try catch某些大内存分配的操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#谨慎使用-static-对象"><span class="nav-number">5.0.4.</span> <span class="nav-text">谨慎使用 static 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特别留意单例对象中不合理的持有"><span class="nav-number">5.0.5.</span> <span class="nav-text">特别留意单例对象中不合理的持有</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化布局层次，减少内存消耗"><span class="nav-number">5.0.6.</span> <span class="nav-text">优化布局层次，减少内存消耗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#谨慎使用多进程"><span class="nav-number">5.0.7.</span> <span class="nav-text">谨慎使用多进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">6.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南尘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://nanchen2251.github.io/2017/09/13/这可能是最好的性能优化教程（三）/';
+          this.page.identifier = '2017/09/13/这可能是最好的性能优化教程（三）/';
+          this.page.title = '这可能是最好的性能优化教程（三）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("rSjHJoRxgPvk2k85EPUGJM8W-gzGzoHsz", "KVbrqP1enMzMMnKGFaMLk0Hi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
